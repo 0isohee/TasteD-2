@@ -1,6 +1,4 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
   <div>
@@ -25,9 +23,7 @@
                   <h4>대전 빵집 | 호두베이크샵</h4>
                 </div>
 
-                <div class="text-body-1 py-4">
-                  휘낭시에와 스콘 맛집입니다
-                </div>
+                <div class="text-body-1 py-4">휘낭시에와 스콘 맛집입니다</div>
 
                 <div class="d-flex align-center justify-space-between">
                   <div class="d-flex align-center">
@@ -40,9 +36,7 @@
 
                   <div class="d-flex align-center">
                     <div>
-                      <v-chip small color="transparent">
-                        <v-icon left>mdi-eye</v-icon>1.4k
-                      </v-chip>
+                      <v-chip small color="transparent"> <v-icon left>mdi-eye</v-icon>1.4k </v-chip>
 
                       <v-chip small color="transparent">
                         <v-icon left>mdi-comment-outline</v-icon>7 Comment
@@ -54,9 +48,7 @@
                 <v-divider class="my-4"></v-divider>
 
                 <div>
-                  <p class="text-subtitle-1 primary--text font-weight-medium">
-                    안뇽하세요
-                  </p>
+                  <p class="text-subtitle-1 primary--text font-weight-medium">안뇽하세요</p>
                 </div>
 
                 <div class="py-4">
@@ -72,9 +64,7 @@
 
                 <div class="text-h5 primary--text font-weight-bold">
                   바꿀 예정
-                  <p class="text-subtitle-1 primary--text font-weight-medium mt-5">
-                    준비중
-                  </p>
+                  <p class="text-subtitle-1 primary--text font-weight-medium mt-5">준비중</p>
                 </div>
 
                 <div class="my-4">
@@ -105,22 +95,14 @@
                   준비중
                   <div class="text-subtitle-1 primary--text font-weight-medium mt-5">
                     <ul>
-                      <li class="my-2">
-                        준비중
-                      </li>
+                      <li class="my-2">준비중</li>
 
-                      <li class="my-2">
-                        준비중
-                      </li>
+                      <li class="my-2">준비중</li>
 
-                      <li class="my-2">
-                        준비중
-                      </li>
+                      <li class="my-2">준비중</li>
                     </ul>
 
-                    <p>
-                      준비중
-                    </p>
+                    <p>준비중</p>
                   </div>
                 </div>
 
@@ -157,7 +139,6 @@
                     <v-btn icon large>
                       <v-icon large color="primary">mdi-youtube</v-icon>
                     </v-btn>
-
                   </div>
                 </div>
 
@@ -205,6 +186,4 @@
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
