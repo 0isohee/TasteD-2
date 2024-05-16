@@ -1,7 +1,9 @@
+<!-- ReviewBoardInsert.vue -->
 <script>
 import { ref } from "vue";
+import { ref } from "vue";
 export default {
-  name: "ReviewBoardList",
+  name: "ReviewBoardInsert",
   data() {
     return {
       formData: ref({

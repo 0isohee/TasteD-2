@@ -1,39 +1,29 @@
 <template>
   <div>
     <v-navigation-drawer
-        v-if="!$vuetify.breakpoint.smAndUp"
-        v-model="drawer"
-        :clipped="$vuetify.breakpoint.lgAndUp"
-        app
-        color="mainColor"
-        dark
+      v-if="!$vuetify.breakpoint.smAndUp"
+      v-model="drawer"
+      :clipped="$vuetify.breakpoint.lgAndUp"
+      app
+      color="mainColor"
+      dark
     >
       <!-- 내용 생략 -->
     </v-navigation-drawer>
 
-    <v-app-bar
-        :clipped-left="$vuetify.breakpoint.lgAndUp"
-        app
-        color="white"
-        elevate-on-scroll
-        flat
-    >
+    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="white" elevate-on-scroll flat>
       <v-container :class="{ 'px-0': !$vuetify.breakpoint.smAndUp }">
-        <v-row
-            :no-gutters="!$vuetify.breakpoint.smAndUp"
-            align="center"
-            justify="space-between"
-        >
+        <v-row :no-gutters="!$vuetify.breakpoint.smAndUp" align="center" justify="space-between">
           <!-- 왼쪽 로고 및 메뉴 아이콘 -->
           <v-col class="d-flex align-center">
             <v-app-bar-nav-icon
-                v-if="!$vuetify.breakpoint.mdAndUp"
-                @click.stop="drawer = !drawer"
+              v-if="!$vuetify.breakpoint.mdAndUp"
+              @click.stop="drawer = !drawer"
             />
             <v-toolbar-title
-                class="font-weight-bold text-h5 titleColor--text"
-                style="cursor: pointer"
-                @click="$router.push('/')"
+              class="font-weight-bold text-h5 titleColor--text"
+              style="cursor: pointer"
+              @click="$router.push('/')"
             >
               <v-icon color="mainColor" large>mdi mdi-store-marker-outline</v-icon>
               TASTE
@@ -44,33 +34,44 @@
 
           <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="6">
             <v-btn
-                v-for="(item, i) in barItems"
-                :key="i"
-                :to="item.to"
-                class="text-capitalize"
-                exact
-                exact-active-class="font-weight-bold mainColor--text"
-                text
-            >{{ item.title }}
+              v-for="(item, i) in barItems"
+              :key="i"
+              :to="item.to"
+              class="text-capitalize"
+              exact
+              exact-active-class="font-weight-bold mainColor--text"
+              text
+              >{{ item.title }}
             </v-btn>
           </v-col>
 
           <!-- 오른쪽 로고 -->
-          <v-col v-if="$vuetify.breakpoint.mdAndUp" class="text-right" @mouseover="showMenu = true" @mouseleave="showMenu = false">
+          <v-col
+            v-if="$vuetify.breakpoint.mdAndUp"
+            class="text-right"
+            @mouseover="showMenu = true"
+            @mouseleave="showMenu = false"
+          >
             <v-menu v-model="showMenu" offset-y>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon>
-                  <v-icon class="mdi mdi-account-outline" style="font-size: 36px; color: #524a44;"></v-icon>
+                  <v-icon
+                    class="mdi mdi-account-outline"
+                    style="font-size: 36px; color: #524a44"
+                  ></v-icon>
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item v-for="item in menuItems" :key="item.text" @click="handleItemClick(item)">
+                <v-list-item
+                  v-for="item in menuItems"
+                  :key="item.text"
+                  @click="handleItemClick(item)"
+                >
                   <v-list-item-title>{{ item.text }}</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
           </v-col>
-
         </v-row>
       </v-container>
     </v-app-bar>
@@ -95,7 +96,6 @@ export default {
         title: "후기 공유",
         to: "/reviewboard",
       },
-      
       {
         title: "미정",
         to: "/authors",
@@ -103,26 +103,24 @@ export default {
     ],
     menuItems: [
       {
-        text: '로그인',
-        action: 'Login',
-        to: '/login'
+        text: "로그인",
+        action: "Login",
+        to: "/login",
       },
       {
-        text: '회원가입',
-        action: 'UserJoin',
-        to: '/login/join'
-      }
-    ]
+        text: "회원가입",
+        action: "UserJoin",
+        to: "/login/join",
+      },
+    ],
   }),
   methods: {
     handleItemClick(item) {
-      console.log('Selected action:', item.action);
+      console.log("Selected action:", item.action);
       this.$router.push(item.to);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

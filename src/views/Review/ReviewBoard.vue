@@ -1,14 +1,11 @@
 <script>
-export default {  
+export default {
   name: "ReviewBoard",
   components: {
     ReviewBoardList: () => import("@/views/Review/ReviewBoardList.vue"),
   },
-  methods : {
-
-  }
+  methods: {},
 };
-
 </script>
 
 <template>
@@ -27,15 +24,12 @@ export default {
       </v-col>
 
       <v-col>
-          <div>
-            <ReviewBoardList />
-          </div>
+        <div>
+          <ReviewBoardList />
+        </div>
       </v-col>
     </v-row>
-    
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
