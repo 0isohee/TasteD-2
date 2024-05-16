@@ -26,7 +26,7 @@ export default {
     };
   },
   methods: {
-    goToReviewDetail(i) {
+    goToStoreDetail(i) {
       this.$router.push({ name: "ReviewBoardDetail", params: { id: i } });
     },
     addReview() {
@@ -53,7 +53,7 @@ export default {
       <div>
         <v-row v-for="i in 5" :key="i" class="py-2">
           <v-col cols="12" md="6" lg="5">
-            <v-card height="100%" flat @click.prevent="goToReviewDetail(i)">
+            <v-card height="100%" flat @click.prevent="goToStoreDetail(i)">
               <v-img :src="review[0].img" :aspect-ratio="16 / 9" height="100%"></v-img>
             </v-card>
           </v-col>

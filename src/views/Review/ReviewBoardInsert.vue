@@ -1,18 +1,19 @@
+<!-- ReviewBoardInsert.vue -->
 <script>
 import { ref } from "vue";
 export default {
-  name: "ReviewBoardList",
+  name: "ReviewBoardInsert",
   data() {
     return {
       formData: ref({
-        title: "후기 등록",
-        tag: "", // 사용자 입력을 받을 태그 변수
-        storeName: "", // 사용자 입력을 받을 가게 이름 변수
-        storeAddress: "",
-        storeComment: "", // 사용자 입력을 받을 설명 변수
-        writer: "SoHee Lee", // 사용자 입력을 받을 작성자 이름 변수
-        date: "10 May 2024", // 사용자 입력을 받을 작성일 변수
-        tag: "", // 사용자 입력을 받을 태그 변수
+        title: "ddd",
+        tag: "ddd", // 사용자 입력을 받을 태그 변수
+        storeName: "ddd", // 사용자 입력을 받을 가게 이름 변수
+        storeAddress: "ddd",
+        storeComment: "ddd", // 사용자 입력을 받을 설명 변수
+        writer: "ddd", // 사용자 입력을 받을 작성자 이름 변수
+        date: "ddd", // 사용자 입력을 받을 작성일 변수
+        tag: "ddddddd", // 사용자 입력을 받을 태그 변수
 
         tags: [], // 사용자가 입력한 태그를 저장할 배열
         images: [], // 사용자 입력을 받을 이미지 URL 배열 변수
@@ -30,13 +31,30 @@ export default {
   methods: {
     confirmInsert() {
       if (confirm("해당 리뷰를 등록하시겠습니까?")) {
-        //db 로 값보내기
-        console.log(this.formData);
-      } else {
+        const newReview = {
+          title: this.formData.title,
+          tag: this.formData.tag,
+          storeName: this.formData.storeName,
+          storeAddress: this.formData.storeAddress,
+          storeComment: this.formData.storeComment,
+          writer: this.formData.writer,
+          date: this.formData.date,
+          tags: [...this.formData.tags], // 태그 배열 복사
+          images: [...this.formData.images], // 이미지 URL 배열 복사
+        };
+
+        // ReviewBoard에 리뷰 데이터 전달
+        this.$emit("review-inserted", newReview);
+
+        // 리뷰 등록 완료 메시지 표시
+        alert("리뷰 등록 완료");
+
+        // ReviewBoardList로 이동
+        this.$router.push({ name: "ReviewBoardList" });
       }
     },
     goToReviewList() {
-      this.$router.push({ name: "ReviewBoardList" });
+      this.$router.push({ name: "ReviewBoard" });
     },
     onTagInput() {
       // 입력된 태그를 배열에 추가
