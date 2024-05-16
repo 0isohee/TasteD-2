@@ -116,7 +116,7 @@ export default {
               <v-card-text>
                 <form>
                   <div>
-                    <label>태그 등록 : d </label>
+                    <label>태그 등록 : dddd </label>
                     <input v-model="formData.tag" type="text" placeholder="태그" />
                   </div>
 
