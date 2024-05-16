@@ -92,104 +92,100 @@ export default {
 </script>
 
 <template>
+  <div>
     <div>
-        <div>
-            <div class="titleContainer">
-              <h3 class="text-h4 font-weight-medium pb-4">후기 등록</h3>
-            </div>
-          <v-divider></v-divider>
-        </div>
+      <div class="titleContainer">
+        <h3 class="text-h4 font-weight-medium pb-4">후기 등록</h3>
+      </div>
+      <v-divider></v-divider>
+    </div>
 
-        <v-row justify="center">
-          <v-col cols="12" lg="12" xl="8">
-            <div>
-              <div align="center">
-                <v-card flat color="transparent">
-                  <v-img
-                    src=""
-                    :aspect-ratio="16 / 9"
-                    width="100vh"
-                    gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
-                    style="border-radius: 16px"
-                  ></v-img>
-    
-                  <v-card-text>
-                    <form>
-                    <div>
-                        <label>태그 등록 :  </label>
-                        <input v-model="formData.tag" type="text" placeholder="태그">
+    <v-row justify="center">
+      <v-col cols="12" lg="12" xl="8">
+        <div>
+          <div align="center">
+            <v-card flat color="transparent">
+              <v-img
+                src=""
+                :aspect-ratio="16 / 9"
+                width="100vh"
+                gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
+                style="border-radius: 16px"
+              ></v-img>
+
+              <v-card-text>
+                <form>
+                  <div>
+                    <label>태그 등록 : d </label>
+                    <input v-model="formData.tag" type="text" placeholder="태그" />
+                  </div>
+
+                  <div class="text-h4 font-weight-bold primary--text pt-4">
+                    <label>가게명 등록 : </label>
+                    <input v-model="formData.storeName" type="text" placeholder="가게 이름" />
+                  </div>
+
+                  <div class="text-body-1 py-4">
+                    <label>가게 위치 : </label>
+                    <input v-model="formData.description" type="text" placeholder="설명" />
+                  </div>
+
+                  <div class="d-flex align-center justify-space-between">
+                    <div class="d-flex align-center">
+                      <v-avatar color="accent" size="36">
+                        <v-icon dark>mdi-heart</v-icon>
+                      </v-avatar>
+
+                      <div class="pl-2 text-body-1">SoHee Lee · 10 May 2024</div>
                     </div>
-      
-                    <div class="text-h4 font-weight-bold primary--text pt-4">
-                        <label>가게명 등록 :  </label>
-                        <input v-model="formData.storeName" type="text" placeholder="가게 이름">
-                    </div>
-      
-                    <div class="text-body-1 py-4">
-                        <label>가게 위치 :  </label>
-                        <input v-model="formData.description" type="text" placeholder="설명">
-                    </div>
-    
-                    <div class="d-flex align-center justify-space-between">
-                      <div class="d-flex align-center">
-                        <v-avatar color="accent" size="36">
-                          <v-icon dark>mdi-heart</v-icon>
-                        </v-avatar>
-    
-                        <div class="pl-2 text-body-1">SoHee Lee · 10 May 2024</div>
-                    </div>
-    
-                      <div class="d-flex align-center">
-                        <div>
-                          <v-chip small color="transparent">
-                            <v-icon left>mdi-eye</v-icon>1.4k
-                          </v-chip>
-    
-                          <v-chip small color="transparent">
-                            <v-icon left>mdi-comment-outline</v-icon>7 Comment
-                          </v-chip>
-                        </div>
+
+                    <div class="d-flex align-center">
+                      <div>
+                        <v-chip small color="transparent">
+                          <v-icon left>mdi-eye</v-icon>1.4k
+                        </v-chip>
+
+                        <v-chip small color="transparent">
+                          <v-icon left>mdi-comment-outline</v-icon>7 Comment
+                        </v-chip>
                       </div>
                     </div>
+                  </div>
 
-    
-                    <div>
-                      <p class="text-subtitle-1 primary--text font-weight-medium">
-                        안뇽하세요
-                      </p>
-                    </div>
-    
-                    <div class="py-4">
-                      <v-alert
-                        class="font-italic text-h6 text-center"
-                        border="left"
-                        colored-border
-                        color="accent"
-                      >
-                        안뇽하세요
-                      </v-alert>
-                    </div>
-                    </form>
+                  <div>
+                    <p class="text-subtitle-1 primary--text font-weight-medium">안뇽하세요</p>
+                  </div>
 
-                  </v-card-text>
-                </v-card>
-              </div>
-            </div>
-          </v-col>
-    
-          <v-col>
-            <div>
-              <siderbar />
-            </div>
-          </v-col>
-        </v-row>
-      </div>
+                  <div class="py-4">
+                    <v-alert
+                      class="font-italic text-h6 text-center"
+                      border="left"
+                      colored-border
+                      color="accent"
+                    >
+                      안뇽하세요
+                    </v-alert>
+                  </div>
+                </form>
+              </v-card-text>
+            </v-card>
+          </div>
+        </div>
+      </v-col>
+
+      <v-col>
+        <div>
+          <siderbar />
+        </div>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <style scoped>
 .titleContainer {
-    align-content: center;
-    text-align: center;
-    height: 10vh;
-} 
+  align-content: center;
+  text-align: center;
+  height: 10vh;
+}
 </style>
