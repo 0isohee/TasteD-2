@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore({
   id: "userList",
   state: () => ({
-    users: [],
+    users: [{ id: "ssafy", password: "ssafy" }],
   }),
   actions: {
     addUser(newUser) {
