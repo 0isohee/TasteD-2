@@ -45,6 +45,12 @@ export default {
     goToList() {
       this.$router.push("/reviewboard");
     },
+    moveToPrev() {
+      console.log("prev");
+    },
+    moveToNext() {
+      console.log("next");
+    },
   },
   watch: {
     // selectedReview 변경을 감지하여 작성자가 admin인지 여부를 다시 설정하는 메서드
@@ -135,7 +141,7 @@ export default {
                       </div>
 
                       <div class="text-h6 primary--text pl-2">
-                        <div class="text-subtitle-1">이전 게시글</div>
+                        <div class="text-subtitle-1" @click="moveToPrev">이전 게시글</div>
                         이번 맛집 레전드
                       </div>
                     </div>
@@ -143,7 +149,7 @@ export default {
 
                   <v-col cols="12" md="6" lg="4">
                     <div class="d-flex justify-end">
-                      <div class="text-h6 primary--text pr-2">
+                      <div class="text-h6 primary--text pr-2" @click="moveToNext">
                         <div class="text-subtitle-1">다음 게시글</div>
                         다음 맛집도 레전드
                       </div>
