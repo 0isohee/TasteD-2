@@ -1,33 +1,16 @@
 <script>
-// const review = ref({
-//   img : '',
-//   category : 'bakery',
-//   icon : 'mdi mdi-baguette',
-//   title : '도안동 빵집 | 이 곳을 공유합니당',
-//   writer : 'So Hee Lee',
-//   writeDate : '13 May 2024'
-// })
-
+import { useReviewStore } from "@/stores/review";
 export default {
   name: "ReviewBoardList",
-  data() {
+  setup() {
+    const reviewStore = useReviewStore();
     return {
-      review: [
-        {
-          img: "../images/preview.png",
-          category: "bakery",
-          icon: "mdi-baguette",
-          title: "도안동 빵집 | 이 곳을 공유합니당",
-          writer: "So Hee Lee",
-          writeDate: "13 May 2024",
-        },
-        // Add more review objects as needed
-      ],
+      reviews: reviewStore.reviews,
     };
   },
   methods: {
-    goToStoreDetail(i) {
-      this.$router.push({ name: "ReviewBoardDetail", params: { id: i } });
+    goToStoreDetail(reviewId) {
+      this.$router.push({ name: "ReviewBoardDetail", params: { id: reviewId } });
     },
     addReview() {
       this.$router.push({ name: "ReviewBoardInsert" });
@@ -38,7 +21,7 @@ export default {
 
 <template>
   <div>
-    <div>
+    <div class="totalContainer">
       <div class="titleContainer">
         <h3 class="text-h5 font-weight-medium pb-4">인기 게시글</h3>
         <v-btn
@@ -51,25 +34,27 @@ export default {
       </div>
       <v-divider></v-divider>
       <div>
-        <v-row v-for="i in 5" :key="i" class="py-2">
+        <v-row v-for="review in reviews" :key="i" class="py-2">
           <v-col cols="12" md="6" lg="5">
-            <v-card height="100%" flat @click.prevent="goToStoreDetail(i)">
-              <v-img :src="review[0].img" :aspect-ratio="16 / 9" height="100%"></v-img>
+            <v-card height="100%" flat @click.prevent="goToStoreDetail(review.id)">
+              <v-img :src="review.images[0]" :aspect-ratio="16 / 9" height="100%"></v-img>
             </v-card>
           </v-col>
 
           <v-col>
             <div>
-              <v-btn depressed color="accent" small>{{ review[0].category }}</v-btn>
+              <v-btn depressed color="accent" small>{{ review.tags[0] }}</v-btn>
               <h3 class="text-h6 font-weight-bold titleColor--text py-3">
-                {{ review[0].title }}
+                {{ review.title }}
               </h3>
 
               <div class="d-flex align-center">
                 <v-avatar color="accent" size="24">
-                  <v-icon dark small>mdi-{{ review[0].icon }}</v-icon>
+                  <v-icon dark small>mdi mdi-baguette</v-icon>
                 </v-avatar>
-                <div class="pl-2">{{ review[0].writer }} · {{ review[0].title }}</div>
+                <div class="pl-2">
+                  {{ review.storeAddress }} 에 위치한 {{ review.storeName }} 을 소개합니다
+                </div>
               </div>
             </div>
           </v-col>

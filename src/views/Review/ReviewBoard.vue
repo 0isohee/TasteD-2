@@ -21,9 +21,6 @@ export default {
             </div>
           </div>
         </div>
-      </v-col>
-
-      <v-col>
         <div>
           <ReviewBoardList />
         </div>

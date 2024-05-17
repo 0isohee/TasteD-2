@@ -1,24 +1,19 @@
 <!-- ReviewBoardInsert.vue -->
 <script>
 import { ref } from "vue";
+import { useReviewStore } from "@/stores/review";
+const reviewStore = useReviewStore();
 export default {
   name: "ReviewBoardInsert",
   data() {
     return {
       formData: ref({
-        title: "후기 등록",
+        id: "",
+        title: "",
         images: [], // 사용자 입력을 받을 이미지 URL 배열 변수
-        tag: "", // 사용자 입력을 받을 태그 변수
         storeName: "", // 사용자 입력을 받을 가게 이름 변수
         storeAddress: "",
         storeComment: "", // 사용자 입력을 받을 설명 변수
-        writer: "SoHee Lee", // 사용자 입력을 받을 작성자 이름 변수
-        date: "10 May 2024", // 사용자 입력을 받을 작성일 변수
-        icon: "mdi-heart", // 사용자 입력을 받을 아이콘 변수
-        eyeIcon: "mdi-eye", // 사용자 입력을 받을 조회수 아이콘 변수
-        eyeCount: "1.4k", // 사용자 입력을 받을 조회수 변수
-        commentIcon: "mdi-comment-outline", // 사용자 입력을 받을 댓글 아이콘 변수
-        commentCount: "7 Comment", // 사용자 입력을 받을 댓글 수 변수
         tag: "", // 사용자 입력을 받을 태그 변수
         tags: [], // 사용자가 입력한 태그를 저장할 배열
       }),
@@ -28,13 +23,19 @@ export default {
   },
   methods: {
     confirmInsert() {
-      // Confirm dialog
       if (confirm("해당 리뷰를 등록하시겠습니까?")) {
-        // If "네" is selected
-        console.log(this.formData); // 출력 formData
+        const newReview = {
+          id: this.formData.id,
+          title: this.formData.title,
+          images: this.formData.images,
+          storeName: this.formData.storeName,
+          storeAddress: this.formData.storeAddress,
+          storeComment: this.formData.storeComment,
+          tags: this.formData.tags,
+        };
+        // console.log(newReview);
+        reviewStore.addReview(newReview);
       } else {
-        // If "아니요" is selected
-        // Do nothing
       }
     },
     onTagInput() {
@@ -64,6 +65,9 @@ export default {
     },
     removeImage(index) {
       this.formData.images.splice(index, 1);
+    },
+    goToList() {
+      this.$router.push({ name: "ReviewBoard" });
     },
   },
 };
@@ -150,13 +154,29 @@ export default {
                       >
                         <label>제목 : </label>
                         <input
-                          v-model="formData.storeName"
+                          v-model="formData.title"
                           type="text"
                           placeholder="제목을 입력해주세요"
                           style="width: 500px; border-bottom: 0.1px solid black"
                         />
                       </div>
 
+                      <div
+                        class="text-body-1 py-3"
+                        style="margin-left: startwidth; margin-top: 6px"
+                      >
+                        <label>가게명 : </label>
+                        <input
+                          v-model="formData.storeName"
+                          type="text"
+                          placeholder="맛집명을 입력해주세요"
+                          style="
+                            margin-left: startwidth;
+                            border-bottom: 0.1px solid black;
+                            width: 500px;
+                          "
+                        />
+                      </div>
                       <div class="text-body-1 py-3" style="margin-left: startwidth">
                         <label>주소 : </label>
                         <input
@@ -186,6 +206,20 @@ export default {
                       </div>
                     </div>
 
+                    <div class="text-body-1 py-3" style="margin-left: startwidth">
+                      <label>임시 아이디 : </label>
+                      <input
+                        v-model="formData.id"
+                        type="number"
+                        placeholder="아이디 입력해주세요"
+                        style="
+                          margin-left: startwidth;
+                          border-bottom: 0.1px solid black;
+                          width: 500px;
+                        "
+                      />
+                    </div>
+
                     <div class="tagContainer">
                       <div>
                         <label color="black">관련 해시태그 등록 : </label>
@@ -213,8 +247,8 @@ export default {
                     </div>
 
                     <div class="btnContainer">
-                      <v-btn color="#cebdae">글 등록</v-btn>
-                      <v-btn color="hover">글 목록</v-btn>
+                      <v-btn color="hover" @click="confirmInsert">글 등록</v-btn>
+                      <v-btn color="#cab8a8" @click="goToList">글 목록</v-btn>
                     </div>
                   </form>
                 </v-card-text>
