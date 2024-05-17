@@ -244,7 +244,7 @@ export default {
                           type="text"
                           placeholder="#해시태그 입력 뒤 엔터를 누르면 등록"
                           @keyup.enter="onTagInput"
-                          style="width: 28%; border-bottom: 0.1px solid black; margin-bottom: 20px"
+                          style="width: 40%; border-bottom: 0.1px solid black; margin-bottom: 20px"
                         />
                         <v-row>
                           <v-col
@@ -261,7 +261,6 @@ export default {
                         </v-row>
                       </div>
                     </div>
-
                     <div class="btnContainer">
                       <v-btn color="hover" @click="confirmInsert">글 등록</v-btn>
                       <v-btn color="#cab8a8" @click="goToList">글 목록</v-btn>

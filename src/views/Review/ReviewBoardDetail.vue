@@ -28,6 +28,20 @@ export default {
     goToEdit() {
       this.$router.push({ name: "ReviewBoardEdit", params: { id: this.selectedReview.id } });
     },
+    goToDelete() {
+      if (confirm("리뷰를 삭제합니다.")) {
+        const reviewStore = useReviewStore();
+        const reviewIndex = reviewStore.reviews.findIndex(
+          (review) => review.id === this.selectedReview.id
+        );
+        // 리뷰 삭제
+        if (reviewIndex !== -1) {
+          reviewStore.reviews.splice(reviewIndex, 1);
+          // 삭제 후 리뷰 목록 화면으로 이동
+          this.$router.push("/reviewboard");
+        }
+      }
+    },
   },
   watch: {
     // selectedReview 변경을 감지하여 작성자가 admin인지 여부를 다시 설정하는 메서드
@@ -79,15 +93,20 @@ export default {
                 <h4>{{ selectedReview.title }}</h4>
               </div>
 
-              <div class="text-body-1 py-4">{{ selectedReview.storeComment }}</div>
+              <div class="text-h5 font-weight-bold py-4">{{ selectedReview.storeName }}</div>
               <div class="d-flex align-center justify-space-between">
                 <div class="d-flex text-align-right">
-                  <div class="pl-2 text-body-1">2024,</div>
+                  <div class="pl-2 text-body-1 font-weight-bold">
+                    {{ selectedReview.storeAddress }}
+                  </div>
                 </div>
 
                 <div class="d-flex align-center">
-                  <div v-show="writerIsAdmin">
+                  <div v-show="writerIsAdmin" style="margin-right: 10px">
                     <v-btn color="hover" @click="goToEdit">후기 수정</v-btn>
+                  </div>
+                  <div v-show="writerIsAdmin">
+                    <v-btn color="hover" @click="goToDelete">후기 삭제</v-btn>
                   </div>
                 </div>
               </div>
@@ -95,7 +114,13 @@ export default {
               <v-divider class="my-4"></v-divider>
 
               <div class="textArea">
-                <p class="text-subtitle-1 black--text font-weight-medium">안녕하세요</p>
+                <p class="text-subtitle-1 black--text font-weight-medium">
+                  {{ selectedReview.storeComment }}
+                </p>
+              </div>
+
+              <div class="btnContainer">
+                <v-btn color="#cab8a8" @click="goToList">글 목록 이동</v-btn>
               </div>
 
               <div>
@@ -138,5 +163,10 @@ export default {
 <style scoped>
 .textArea {
   text-align: center;
+}
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

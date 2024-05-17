@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-
 export const useReviewStore = defineStore({
   id: "reviewList",
   state: () => ({
@@ -8,7 +7,7 @@ export const useReviewStore = defineStore({
       {
         id: 1,
         title: "레전드맛집",
-        images: "../images/preview.png",
+        images: ["/images/preview.png", "../images/preview.png", "../images/preview.png"],
         storeName: "호두베이크샵",
         storeAddress: "도안동",
         storeComment: "스콘이 찢었다",
