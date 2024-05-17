@@ -170,6 +170,7 @@ export default {
                   v-model="editedReview.storeComment"
                   label="맛집 코멘트 수정"
                   outlined
+                  class="commentField"
                 ></v-text-field>
               </div>
 
@@ -197,5 +198,10 @@ export default {
 }
 .v-text-field .v-input__control .v-input__slot .v-label {
   font-size: 1.5rem; /* 제목 글씨 크기를 더 키움 */
+}
+.commentField .v-text-field__slot input {
+  min-height: 500px; /* 최소 높이를 500px로 설정 */
+  height: auto !important; /* 자동으로 높이가 조절되도록 설정 */
+  resize: vertical; /* 사용자가 수직으로만 조절할 수 있도록 설정 */
 }
 </style>
