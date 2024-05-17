@@ -26,7 +26,7 @@ export default {
       }
     },
     goToEdit() {
-      this.$router.push({ name: "ReviewBoardEdit" });
+      this.$router.push({ name: "ReviewBoardEdit", params: { id: this.selectedReview.id } });
     },
   },
   watch: {

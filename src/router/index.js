@@ -41,7 +41,7 @@ const routes = [
     component: () => import("@/views/Review/ReviewBoardInsert.vue"),
   },
   {
-    path: "/reviewboard/edit-review",
+    path: "/reviewboard/edit-review/:id",
     name: "ReviewBoardEdit",
     component: () => import("@/views/Review/ReviewBoardEdit.vue"),
   },
