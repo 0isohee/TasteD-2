@@ -30,6 +30,9 @@ export default {
       );
       // 수정된 리뷰를 리뷰 스토어에 업데이트
       reviewStore.reviews.splice(reviewIndex, 1, this.editedReview);
+
+      //수정 완료 알람창
+      alert("수정 완료");
       // 저장 후 리뷰 목록 화면으로 이동
       this.$router.push("/reviewboard");
     },
@@ -58,6 +61,9 @@ export default {
         this.editedReview.tags.push(this.newTag);
         this.newTag = "";
       }
+    },
+    goToBoard() {
+      this.$router.push("/reviewboard");
     },
   },
 };
@@ -174,8 +180,9 @@ export default {
                 ></v-text-field>
               </div>
 
-              <div style="display: flex; justify-content: center">
-                <v-btn color="hover" @click="saveReview">수정</v-btn>
+              <div class="btnContainer" style="display: flex; justify-content: center">
+                <!-- <v-btn color="hover" @click="goToBoard">취소</v-btn> -->
+                <v-btn color="#a99b95" @click="saveReview">수정</v-btn>
               </div>
             </v-card-text>
             <!-- 수정된 리뷰를 저장하는 버튼 -->
@@ -203,5 +210,8 @@ export default {
   min-height: 500px; /* 최소 높이를 500px로 설정 */
   height: auto !important; /* 자동으로 높이가 조절되도록 설정 */
   resize: vertical; /* 사용자가 수직으로만 조절할 수 있도록 설정 */
+}
+.btnContainer button {
+  margin-left: 10px;
 }
 </style>
