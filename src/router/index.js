@@ -66,14 +66,14 @@ const routes = [
     component: () => import("@/views/User/UserList.vue"),
   },
   {
-    path: "/find-id",
-    name: "FindId",
-    component: () => import("@/views/User/FindId.vue"),
+    path: "/search-id",
+    name: "SearchId",
+    component: () => import("@/views/User/SearchId.vue"),
   },
   {
-    path: "/find-pwd",
-    name: "FindPwd",
-    component: () => import("@/views/User/FindPwd.vue"),
+    path: "/search-pwd",
+    name: "SearchPwd",
+    component: () => import("@/views/User/SearchPwd.vue"),
   },
 ];
 

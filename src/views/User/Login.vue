@@ -63,8 +63,8 @@ export default {
           ></v-text-field>
           <div class="d-flex justify-center mt-2">
             <!-- 링크들을 가운데 정렬 -->
-            <router-link to="/find-id" class="mr-4">아이디 찾기</router-link>
-            <router-link to="/find-pwd" class="mr-4">비밀번호 찾기</router-link>
+            <router-link to="/search-id" class="mr-4">아이디 찾기</router-link>
+            <router-link to="/search-pwd" class="mr-4">비밀번호 찾기</router-link>
             <router-link to="/join">회원 가입</router-link>
           </div>
           <div class="text-center mt-5 md-3">
