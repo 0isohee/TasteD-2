@@ -42,6 +42,9 @@ export default {
         }
       }
     },
+    goToList() {
+      this.$router.push({ name: "ReviewBoard" });
+    },
   },
   watch: {
     // selectedReview 변경을 감지하여 작성자가 admin인지 여부를 다시 설정하는 메서드
@@ -120,7 +123,7 @@ export default {
               </div>
 
               <div class="btnContainer">
-                <v-btn color="#cab8a8" @click="goToList">글 목록 이동</v-btn>
+                <v-btn color="hover" @click="goToList">글 목록 이동</v-btn>
               </div>
 
               <div>
