@@ -1,9 +1,9 @@
 <script>
 export default {
   name: "StoreBoard",
-  methods : {
+  methods: {
     goToBoardDetail() {
-      this.$router.push({ name : 'StoreBoardDetail'})
+      this.$router.push({ name: "StoreBoardDetail" });
     },
   },
   components: {
@@ -27,11 +27,7 @@ export default {
             <v-divider class="my-4"></v-divider>
             <v-row>
               <v-col cols="12" md="6" lg="4" v-for="i in 18" :key="i">
-                <v-hover
-                  v-slot:default="{ hover }"
-                  open-delay="50"
-                  close-delay="50"
-                >
+                <v-hover v-slot:default="{ hover }" open-delay="50" close-delay="50">
                   <div>
                     <v-card
                       flat
@@ -54,13 +50,9 @@ export default {
                       </v-img>
 
                       <v-card-text>
-                        <div class="text-h5 font-weight-bold mainColor--text">
-                          대전 제일 맛집
-                        </div>
+                        <div class="text-h5 font-weight-bold mainColor--text">대전 제일 맛집</div>
 
-                        <div class="text-body-1 py-4">
-                          아주 맛있었던 곳이에요
-                        </div>
+                        <div class="text-body-1 py-4">아주 맛있었던 곳이에요</div>
 
                         <div class="d-flex align-center">
                           <v-avatar color="accent" size="36">
@@ -78,16 +70,14 @@ export default {
           </div>
         </div>
       </v-col>
+    </v-row>
 
-      <!-- <v-col>
-        <div>
-          <siderbar />
-        </div>
-      </v-col> -->
+    <v-row justify="center">
+      <v-col cols="12">
+        <v-pagination v-model="currentPage" :length="10" @input="changePage"></v-pagination>
+      </v-col>
     </v-row>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

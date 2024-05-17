@@ -6,14 +6,37 @@ export default {
   data() {
     return {
       selectedReview: null,
+      writerIsAdmin: false, // 작성자가 admin인지 여부를 저장할 변수 추가
     };
   },
   created() {
     const reviewStore = useReviewStore();
     const reviewId = this.$route.params.id;
     this.selectedReview = reviewStore.reviews.find((review) => review.id === reviewId);
-
-    console.log(this.selectedReview); // 선택된 리뷰를 콘솔에 출력
+    this.setWriterIsAdmin(); // 작성자가 admin인지 여부를 설정하는 메서드 호출
+  },
+  methods: {
+    // 작성자가 admin인지 여부를 설정하는 메서드
+    setWriterIsAdmin() {
+      // console.log(this.selectedReview.writer);
+      if (this.selectedReview && this.selectedReview.writer === "admin") {
+        this.writerIsAdmin = true;
+      } else {
+        this.writerIsAdmin = false;
+      }
+    },
+    goToEdit() {
+      this.$router.push({ name: "ReviewBoardEdit" });
+    },
+  },
+  watch: {
+    // selectedReview 변경을 감지하여 작성자가 admin인지 여부를 다시 설정하는 메서드
+    selectedReview: {
+      handler() {
+        this.setWriterIsAdmin();
+      },
+      deep: true, // 객체의 하위 속성도 감시
+    },
   },
 };
 </script>
@@ -24,82 +47,87 @@ export default {
       <v-col cols="12" lg="12" xl="8">
         <div>
           <v-card flat color="transparent">
-            <div v-if="selectedReview">
-              <v-img
+            <v-row v-if="selectedReview" justify="center">
+              <v-col
                 v-for="(img, index) in selectedReview.images.slice(0, 3)"
                 :key="index"
-                :src="img"
-                :aspect-ratio="1 / 1"
-                gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
-                width="100%"
-                style="min-height: 200px; border: 1px solid #ccc; border-radius: 8px; margin: 10px"
-              ></v-img>
+                cols="12"
+                sm="4"
+                md="4"
+                lg="4"
+              >
+                <v-img
+                  :src="img"
+                  :aspect-ratio="1 / 1"
+                  gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
+                  width="100%"
+                  style="border: 1px solid #ccc; border-radius: 8px; margin: 10px"
+                ></v-img>
+              </v-col>
+            </v-row>
 
-              <v-card-text>
-                <div class="mt-1">
-                  <v-row v-for="tag in selectedReview.tags" :key="tag">
-                    <v-col class="flex-shrink-0" cols="auto">
-                      <v-chip color="accent">{{ tag }}</v-chip>
-                    </v-col>
-                  </v-row>
+            <v-card-text v-if="selectedReview">
+              <div class="mt-1">
+                <v-row>
+                  <v-col v-for="(tag, index) in selectedReview.tags" :key="index" cols="auto">
+                    <v-chip color="accent">{{ tag }}</v-chip>
+                  </v-col>
+                </v-row>
+              </div>
+
+              <div class="text-h4 font-weight-bold primary--text pt-4">
+                <h4>{{ selectedReview.title }}</h4>
+              </div>
+
+              <div class="text-body-1 py-4">{{ selectedReview.storeComment }}</div>
+              <div class="d-flex align-center justify-space-between">
+                <div class="d-flex text-align-right">
+                  <div class="pl-2 text-body-1">2024,</div>
                 </div>
 
-                <div class="text-h4 font-weight-bold primary--text pt-4">
-                  <h4>{{ selectedReview.title }}</h4>
-                </div>
-
-                <div class="text-body-1 py-4">{{ selectedReview.storeComment }}</div>
-                <div class="d-flex align-center justify-space-between">
-                  <div class="d-flex text-align-right">
-                    <div class="pl-2 text-body-1">2024,</div>
+                <div class="d-flex align-center">
+                  <div v-show="writerIsAdmin">
+                    <v-btn color="hover" @click="goToEdit">후기 수정</v-btn>
                   </div>
+                </div>
+              </div>
 
-                  <div class="d-flex align-center">
-                    <div>
-                      <v-chip small color="transparent">
-                        <v-icon left>mdi-eye</v-icon>{{ selectedReview.category }}
-                      </v-chip>
+              <v-divider class="my-4"></v-divider>
+
+              <div class="textArea">
+                <p class="text-subtitle-1 black--text font-weight-medium">안녕하세요</p>
+              </div>
+
+              <div>
+                <v-row justify="space-between">
+                  <v-col cols="12" md="6" lg="4">
+                    <div class="d-flex align-center">
+                      <div>
+                        <v-icon>mdi-arrow-left</v-icon>
+                      </div>
+
+                      <div class="text-h6 primary--text pl-2">
+                        <div class="text-subtitle-1">이전 게시글</div>
+                        이번 맛집 레전드
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </v-col>
 
-                <v-divider class="my-4"></v-divider>
-
-                <div class="textArea">
-                  <p class="text-subtitle-1 black--text font-weight-medium">안녕하세요</p>
-                </div>
-
-                <div>
-                  <v-row justify="space-between">
-                    <v-col cols="12" md="6" lg="4">
-                      <div class="d-flex align-center">
-                        <div>
-                          <v-icon>mdi-arrow-left</v-icon>
-                        </div>
-
-                        <div class="text-h6 primary--text pl-2">
-                          <div class="text-subtitle-1">이전 게시글</div>
-                          이번 맛집 레전드
-                        </div>
+                  <v-col cols="12" md="6" lg="4">
+                    <div class="d-flex justify-end">
+                      <div class="text-h6 primary--text pr-2">
+                        <div class="text-subtitle-1">다음 게시글</div>
+                        다음 맛집도 레전드
                       </div>
-                    </v-col>
 
-                    <v-col cols="12" md="6" lg="4">
-                      <div class="d-flex justify-end">
-                        <div class="text-h6 primary--text pr-2">
-                          <div class="text-subtitle-1">다음 게시글</div>
-                          다음 맛집도 레전드
-                        </div>
-
-                        <div>
-                          <v-icon>mdi-arrow-right</v-icon>
-                        </div>
+                      <div>
+                        <v-icon>mdi-arrow-right</v-icon>
                       </div>
-                    </v-col>
-                  </v-row>
-                </div>
-              </v-card-text>
-            </div>
+                    </div>
+                  </v-col>
+                </v-row>
+              </div>
+            </v-card-text>
           </v-card>
         </div>
       </v-col>

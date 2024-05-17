@@ -32,9 +32,16 @@ export default {
           storeAddress: this.formData.storeAddress,
           storeComment: this.formData.storeComment,
           tags: this.formData.tags,
+
+          // 임시로 저장
+          writer: "admin",
         };
         // console.log(newReview);
         reviewStore.addReview(newReview);
+
+        alert("글 등록 완료");
+
+        this.goToList();
       } else {
       }
     },
@@ -89,14 +96,15 @@ export default {
             <div align="center">
               <v-card flat color="transparent">
                 <v-card-text>
-                  <v-row>
+                  <v-row justify="center">
                     <!-- 각 이미지를 표시 -->
                     <v-col
                       v-for="(image, index) in formData.images"
                       :key="index"
-                      cols="12"
+                      cols="auto"
                       sm="6"
                       md="4"
+                      lg="3"
                     >
                       <v-img
                         :src="image"
@@ -109,6 +117,14 @@ export default {
                         </v-btn>
                       </v-img>
                     </v-col>
+                    <!-- 이미지가 없을 때 기본 이미지 표시 -->
+                    <v-img
+                      v-if="formData.images.length === 0"
+                      src="/images/no_file.jpg"
+                      aspect-ratio="1 / 1"
+                      width="100%"
+                      style="border-radius: 16px; margin-bottom: 10px"
+                    ></v-img>
                   </v-row>
 
                   <form>
@@ -290,9 +306,11 @@ export default {
   align-items: center;
   border: 1px solid;
   border-radius: 15px;
+  flex-wrap: wrap; /* 줄바꿈 처리 */
+  justify-content: center; /* 가운데 정렬 */
 }
 .imgContainer div {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .imgText {
   margin-bottom: 10px;
@@ -317,5 +335,8 @@ export default {
 }
 .btnContainer {
   margin-top: 20px;
+}
+.btnContainer button {
+  margin-left: 10px;
 }
 </style>
