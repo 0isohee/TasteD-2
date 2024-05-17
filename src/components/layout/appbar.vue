@@ -109,8 +109,13 @@ export default {
       },
       {
         text: "회원가입",
-        action: "UserJoin",
-        to: "/login/join",
+        action: "Join",
+        to: "/join",
+      },
+      {
+        text: "마이페이지",
+        action: "MyPage",
+        to: "/mypage",
       },
     ],
   }),

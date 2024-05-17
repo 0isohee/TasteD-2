@@ -51,9 +51,19 @@ const routes = [
     component: () => import("@/views/Login.vue"),
   },
   {
-    path: "/login/join",
-    name: "UserJoin",
-    component: () => import("@/views/User/UserJoin.vue"),
+    path: "/join",
+    name: "Join",
+    component: () => import("@/views/User/Join.vue"),
+  },
+  {
+    path: "/mypage",
+    name: "MyPage",
+    component: () => import("@/views/User/MyPage.vue"),
+  },
+  {
+    path: "/userlist",
+    name: "UserList",
+    component: () => import("@/views/User/UserList.vue"),
   },
 ];
 
