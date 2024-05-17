@@ -213,8 +213,8 @@ export default {
                     </div>
 
                     <div class="btnContainer">
-                      <v-btn color="accent">글 등록</v-btn>
-                      <v-btn color="accent">글 목록</v-btn>
+                      <v-btn color="#cebdae">글 등록</v-btn>
+                      <v-btn color="hover">글 목록</v-btn>
                     </div>
                   </form>
                 </v-card-text>
@@ -280,5 +280,8 @@ export default {
   text-align: left;
   width: 80%;
   text-align: left;
+}
+.btnContainer {
+  margin-top: 20px;
 }
 </style>

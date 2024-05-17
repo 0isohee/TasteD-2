@@ -10,11 +10,11 @@ export default new Vuetify({
     },
     themes: {
       light: {
-        titleColor : "#36302b",
-        mainColor : "#524A44",
-        footerColor : "#36302b",
-        black : "000",
-        hover : "#EBE4DE",
+        titleColor: "#36302b",
+        mainColor: "#524A44",
+        footerColor: "#36302b",
+        black: "000",
+        hover: "#EBE4DE",
         accent: "#524A44",
       },
     },
