@@ -65,6 +65,16 @@ const routes = [
     name: "UserList",
     component: () => import("@/views/User/UserList.vue"),
   },
+  {
+    path: "/find-id",
+    name: "FindId",
+    component: () => import("@/views/User/FindId.vue"),
+  },
+  {
+    path: "/find-pwd",
+    name: "FindPwd",
+    component: () => import("@/views/User/FindPwd.vue"),
+  },
 ];
 
 const router = new VueRouter({

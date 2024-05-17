@@ -23,6 +23,7 @@ export default {
       // 사용자가 존재하는 경우
       if (foundUser) {
         alert("로그인 성공");
+        this.$router.push({ name: "MyPage" });
       } else {
         alert("사용자가 없습니다");
         // 사용자에게 알림 메시지 표시
@@ -62,12 +63,9 @@ export default {
           ></v-text-field>
           <div class="d-flex justify-center mt-2">
             <!-- 링크들을 가운데 정렬 -->
-            <router-link to="/find-username" class="mr-4">아이디 찾기</router-link>
-            <!-- Router를 통한 연결 -->
-            <router-link to="/find-password" class="mr-4">비밀번호 찾기</router-link>
-            <!-- Router를 통한 연결 -->
-            <router-link to="/login/join">회원 가입</router-link>
-            <!-- Router를 통한 연결 -->
+            <router-link to="/find-id" class="mr-4">아이디 찾기</router-link>
+            <router-link to="/find-pwd" class="mr-4">비밀번호 찾기</router-link>
+            <router-link to="/join">회원 가입</router-link>
           </div>
           <div class="text-center mt-5 md-3">
             <v-btn color="primary" class="user-button" @click.prevent="loginMember"> Login </v-btn>
