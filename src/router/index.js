@@ -43,7 +43,7 @@ const routes = [
   {
     path: "/reviewboard/edit-review",
     name: "ReviewBoardEdit",
-    component: () => import("@/views/Review/ReviewBoardInsert.vue"),
+    component: () => import("@/views/Review/ReviewBoardEdit.vue"),
   },
   {
     path: "/login",
