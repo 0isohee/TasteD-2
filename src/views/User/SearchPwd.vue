@@ -75,7 +75,7 @@ export default {
       <v-card class="flex-row justify-center">
         <v-card-title class="headline text-center">비밀번호 찾기</v-card-title>
         <v-card-text>
-          <p v-if="foundId">
+          <p v-if="foundPwd">
             {{ name }}님의 비밀번호는 <span class="red--text">{{ foundPwd }}</span> 입니다.
           </p>
           <p v-else>해당하는 사용자가 없습니다.</p>
