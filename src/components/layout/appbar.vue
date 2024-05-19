@@ -46,13 +46,8 @@
           </v-col>
 
           <!-- 오른쪽 로고 -->
-          <v-col
-            v-if="$vuetify.breakpoint.mdAndUp"
-            class="text-right"
-            @mouseover="showMenu = true"
-            @mouseleave="showMenu = false"
-          >
-            <v-menu v-model="showMenu" offset-y>
+          <v-col v-if="$vuetify.breakpoint.mdAndUp" class="text-right">
+            <v-menu v-model="showMenu" offset-y open-on-hover>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon>
                   <v-icon
@@ -63,7 +58,7 @@
               </template>
               <v-list>
                 <v-list-item
-                  v-for="item in menuItems"
+                  v-for="item in btnItems"
                   :key="item.text"
                   @click="handleItemClick(item)"
                 >
@@ -79,10 +74,12 @@
 </template>
 
 <script>
+import { useUserStore } from "@/stores/user.js";
+const userStore = useUserStore();
+
 export default {
   data: () => ({
     drawer: null,
-    btnItems: [],
     barItems: [
       {
         title: "홈",
@@ -101,24 +98,32 @@ export default {
         to: "/authors",
       },
     ],
-    menuItems: [
-      {
-        text: "로그인",
-        action: "Login",
-        to: "/login",
-      },
-      {
-        text: "회원가입",
-        action: "Join",
-        to: "/join",
-      },
-      {
-        text: "마이페이지",
-        action: "MyPage",
-        to: "/mypage",
-      },
-    ],
+    showMenu: false,
   }),
+  computed: {
+    btnItems() {
+      let items = [
+        {
+          text: "로그인",
+          action: "Login",
+          to: "/login",
+        },
+        {
+          text: "회원가입",
+          action: "Join",
+          to: "/join",
+        },
+      ];
+      if (userStore.currentUser) {
+        items.push({
+          text: "마이페이지",
+          action: "MyPage",
+          to: "/mypage",
+        });
+      }
+      return items;
+    },
+  },
   methods: {
     handleItemClick(item) {
       console.log("Selected action:", item.action);
