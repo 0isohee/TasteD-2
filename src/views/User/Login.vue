@@ -7,6 +7,7 @@ export default {
     return {
       id: "",
       password: "",
+      showPassword: false, // 추가된 데이터 속성
     };
   },
   methods: {
@@ -59,8 +60,14 @@ export default {
             label="비밀번호"
             outlined
             v-model="password"
+            :type="showPassword ? 'text' : 'password'"
             :rules="[(v) => !!v || '비밀번호를 입력하세요']"
           ></v-text-field>
+          <v-checkbox
+            v-model="showPassword"
+            label="비밀번호 보이기"
+            class="no-margin"
+          ></v-checkbox>
           <div class="d-flex justify-center mt-2">
             <!-- 링크들을 가운데 정렬 -->
             <router-link to="/search-id" class="mr-4">아이디 찾기</router-link>
@@ -84,5 +91,8 @@ export default {
   margin: 0 10px;
   font-weight: bold;
   color: #2178ff;
+}
+.no-margin {
+  margin-top: 0 !important; /* 상단 마진 제거 */
 }
 </style>
