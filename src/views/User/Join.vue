@@ -58,9 +58,9 @@ export default {
                 outlined
                 v-model="id"
                 :rules="[
-                  (v) => !!v || '영문/숫자 조합 (7~15자 이내)',
+                  (v) => !!v || '영문/숫자 조합 (5~12자 이내)',
                   (v) => /^[a-zA-Z0-9]+$/.test(v) || '영어와 숫자만 입력 가능합니다',
-                  (v) => (v && v.length >= 7 && v.length <= 15) || '7~15자 이내로 입력하세요',
+                  (v) => (v && v.length >= 5 && v.length <= 12) || '5~12자 이내로 입력하세요',
                 ]"
               ></v-text-field>
               <v-text-field

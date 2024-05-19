@@ -24,6 +24,8 @@ export default {
       // 사용자가 존재하는 경우
       if (foundUser) {
         alert("로그인 성공");
+        userStore.currentUser = foundUser;
+        // console.log(userStore.currentUser)
         this.$router.push({ name: "MyPage" });
       } else {
         alert("사용자가 없습니다");
