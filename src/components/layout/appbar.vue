@@ -120,7 +120,7 @@ export default {
             {
               text: "회원관리",
               action: "Admin",
-              to: "/Admin",
+              to: "/admin",
             }
           )
         } 
