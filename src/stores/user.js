@@ -8,6 +8,11 @@ export const useUserStore = defineStore({
         password: "ssafy", 
         name: "이소희", 
         email: "s@s.com" 
+      },
+      { id: "admin", 
+        password: "admin", 
+        name: "관리자", 
+        email: "ssafy@ssafy.com" 
       }
     ],
     currentUser: null,
