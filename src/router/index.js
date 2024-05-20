@@ -8,12 +8,17 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import("@/views/Home.vue"),
   },
   {
     path: "/storeboard",
     name: "StoreBoard",
     component: () => import("@/views/Store/StoreBoard.vue"),
+  },
+  {
+    path: "/storeboardl/list",
+    name: "StoreBoardList",
+    component: () => import("@/views/Store/StoreBoardList.vue"),
   },
   {
     path: "/storeboard/detail",

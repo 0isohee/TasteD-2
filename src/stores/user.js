@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { loginUser, logoutUser, deleteUser, getMember, joinUser } from "../api/axios.js";
+import { loginUser, logoutUser, deleteUser, getMember, joinUser } from "@/api/userApi.js";
 
 export const useUserStore = defineStore({
   id: "userList",

@@ -1,15 +1,17 @@
 <script>
-  export default {
-  name: "StoreBoardDetail",
-  components: {
-  // siderbar: () => import("@/components/details/sidebar")
-  }
-  };
+import { useStoreStore } from "@/stores/store.js";
+const userStore = useStoreStore();
+
+export default {
+name: "StoreBoardDetail",
+components: {
+// siderbar: () => import("@/components/details/sidebar")
+}
+};
 </script>
 
 
 <template>
-
   <div>
     <v-row justify="center">
       <v-col cols="12" lg="12" xl="8">

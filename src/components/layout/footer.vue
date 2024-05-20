@@ -1,88 +1,61 @@
 <template>
   <div>
-    <v-card absolute app color="footerColor" dark flat>
+    <v-card app color="footerColor" dark flat>
       <v-container>
         <v-row align="start">
-          <v-col cols="12" md="3">
-            <h4 class="text-h5 font-weight-bold">
-              유맛대전
-            </h4>
-            <p class="text-body-1">
-              대전 맛집에 대한 정보를 공유합니다.
-            </p>
-          </v-col>
-
-          <v-col cols="12" md="3">
-            <v-list color="transparent" flat>
-              <v-subheader class="text-h6">HeroUI</v-subheader>
-              <v-list-item-group color="footerColor">
-                <v-list-item
-                    v-for="(item, i) in heroui"
-                    :key="i"
-                    :href="item.href"
-                    dense
-                    target="_black"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title
-                        class="text-body-1"
-                        v-text="item.text"
-                    ></v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-col>
-
-          <v-col cols="12" md="3">
-            <v-list color="transparent" flat>
-              <v-subheader class="text-h6">Giraffe</v-subheader>
-              <v-list-item-group color="primary">
-                <v-list-item
-                    v-for="(item, i) in shock"
-                    :key="i"
-                    :href="item.href"
-                    dense
-                    target="_black"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title
-                        class="text-body-1"
-                        v-text="item.text"
-                    ></v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-col>
-
-          <v-col cols="12" md="3">
-            <div>
-              <h5 class="text-h6 font-weight-bold">
-                Subscribe
-              </h5>
+          <v-col cols="12" md="4">
+            <div class="headerContainer">
+              <h4 class="text-h5 font-weight-bold">
+                유맛대전
+              </h4>
               <p class="text-body-1">
-                The latest Rocket news, articles, and resources, sent straight
-                to your inbox every month.
+                대전 맛집에 대한 정보를 공유합니다.
               </p>
             </div>
+          </v-col>
 
-            <v-row>
-              <v-col cols="8">
-                <v-text-field
-                    hide-details
-                    label="Filled"
-                    light
-                    solo
-                ></v-text-field>
-              </v-col>
+          <v-col cols="12" md="4">
+            <v-list color="transparent" flat>
+              <v-subheader class="text-h6">LeeJiSu</v-subheader>
+              <v-list-item-group color="footerColor">
+                <v-list-item
+                    v-for="(item, i) in LeeJiSu"
+                    :key="i"
+                    :href="item.href"
+                    dense
+                    target="_black"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title
+                        class="text-body-1"
+                        v-text="item.text"
+                    ></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-col>
 
-              <v-col cols="4">
-                <v-btn block color="white" large>
-                  Subscribe
-                </v-btn>
-              </v-col>
-            </v-row>
+          <v-col cols="12" md="4">
+            <v-list color="transparent" flat>
+              <v-subheader class="text-h6">LeeSoHee</v-subheader>
+              <v-list-item-group color="primary">
+                <v-list-item
+                    v-for="(item, i) in LeeSoHee"
+                    :key="i"
+                    :href="item.href"
+                    dense
+                    target="_black"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title
+                        class="text-body-1"
+                        v-text="item.text"
+                    ></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
           </v-col>
         </v-row>
 
@@ -90,10 +63,10 @@
           Copyright &copy;
           <a
               class="white--text"
-              href="https://heroui.net"
+              href="https://edu.ssafy.com"
               rel="noopener noreferrer"
               target="_blank"
-          >HreoUI</a
+          >TasteD</a
           >
           {{ new Date().getFullYear() }}. All rights reserved.
         </div>
@@ -105,30 +78,35 @@
 <script>
 export default {
   data: () => ({
-    heroui: [
+    LeeJiSu: [
       {
         text: "Github",
-        href: "https://github.com/AGDholo",
+        href: "https://github.com/leejisu",
       },
       {
-        text: "Themes",
-        href: "https://heroui.net/",
+        text: "Velog",
+        href: "https://velog.com",
       },
     ],
-    shock: [
+    LeeSoHee: [
       {
-        text: "Download",
-        href: "https://github.com/AGDholo/giraffe",
+        text: "Github",
+        href: "https://github.com/0isohee",
       },
       {
-        text: "Issues",
-        href: "https://github.com/AGDholo/giraffe/issues",
-      },
-      {
-        text: "LICENSE",
-        href: "https://github.com/AGDholo/giraffe/blob/master/LICENSE",
+        text: "Velog",
+        href: "https://velog.com/0isohee",
       },
     ],
   }),
 };
 </script>
+
+<style scoped>
+.v-card {
+  position: relative;
+}
+.headerContainer {
+  margin-top: 18px;
+}
+</style>
