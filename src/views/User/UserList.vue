@@ -19,10 +19,12 @@
           </div>
           <div class="d-flex">
             <div class="text-subtitle-1 pr-2">
-              이름: <span class="font-weight-bold">{{ user.name }}</span>,
+              이름: <span class="font-weight-bold">{{ user.name }}</span
+              >,
             </div>
             <div class="text-subtitle-1 pr-2">
-              아이디: <span class="font-weight-bold">{{ user.id }}</span>,
+              아이디: <span class="font-weight-bold">{{ user.id }}</span
+              >,
             </div>
             <div class="text-subtitle-1">
               이메일: <span class="font-weight-bold">{{ user.email }}</span>
@@ -41,7 +43,8 @@ export default {
   name: "UserList",
   setup() {
     const userStore = useUserStore();
-    let users = userStore.users.filter(user => user.id !== "admin");
+    userStore.getMemberList();
+    // const users = userStore.users;
 
     const deleteMember = (index) => {
       const userToDelete = users[index];
@@ -54,7 +57,7 @@ export default {
 
     return {
       users,
-      deleteMember
+      deleteMember,
     };
   },
 };
@@ -78,7 +81,7 @@ export default {
   padding-right: 0.5rem;
 }
 span {
-  color: #524A44;
+  color: #524a44;
 }
 button {
   margin-left: 10px;

@@ -115,21 +115,18 @@ export default {
         },
       ];
       if (userStore.currentUser) {
-        if (userStore.currentUser.id === 'admin') {
-          items.push(
-            {
-              text: "회원관리",
-              action: "Admin",
-              to: "/admin",
-            }
-          )
-        } 
-        else {
+        if (userStore.currentUser.id === "admin") {
+          items.push({
+            text: "회원관리",
+            action: "Admin",
+            to: "/admin",
+          });
+        } else {
           items.push({
             text: "마이페이지",
             action: "MyPage",
             to: "/mypage",
-          })
+          });
         }
       }
       return items;

@@ -8,6 +8,7 @@ export default {
       name: "",
       id: "",
       email: "",
+      phone: "",
       password: "",
       passwordConfirm: "",
     };
@@ -22,12 +23,11 @@ export default {
         const newUser = {
           name: this.name,
           id: this.id,
-          email: this.email,
+          domain: this.email,
           password: this.password,
+          phone: this.phone,
         };
         userStore.addUser(newUser);
-        // console.log(userStore.users);
-        console.log("가입하기 눌러졌음");
 
         this.$router.push({ name: "MyPage" });
       }
@@ -68,6 +68,12 @@ export default {
                 outlined
                 v-model="email"
                 :rules="[(v) => /.+@.+\..+/.test(v) || '올바른 이메일 형식이 아닙니다']"
+              ></v-text-field>
+              <v-text-field
+                label="전화번호"
+                outlined
+                v-model="phone"
+                :rules="[(v) => /^\d{3}-\d{4}-\d{4}$/.test(v) || 'xxx-xxxx-xxxx으로 입력해주세요']"
               ></v-text-field>
               <v-text-field
                 label="비밀번호"

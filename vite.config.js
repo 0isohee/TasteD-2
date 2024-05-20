@@ -9,17 +9,6 @@ const REPLACEMENT = `${path.resolve(__dirname, "./src")}/`;
 
 export default () => {
   return defineConfig({
-    base: "./",
-    server: {
-      host: HOST,
-      proxy: {
-        "/api": {
-          target: "http://localhost:8080",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
-        },
-      },
-    },
     resolve: {
       extensions: [".vue", ".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
       alias: [

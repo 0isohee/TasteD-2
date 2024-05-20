@@ -15,35 +15,55 @@ export default {
       this.$router.push({ name: "Join" });
     },
     loginMember() {
-      //userStore에서 로그인
-      userStore.login(this.id, this.password);
-
-      // userStore에서
-      /*
-      const foundUser = userStore.users.find(
-        (user) => user.id === this.id && user.password === this.password
-      );
-      console.log(foundUser);
-
-      // 사용자가 존재하는 경우
-      if (foundUser) {
-        alert("로그인 성공");
-        userStore.currentUser = foundUser;
-        // console.log(userStore.currentUser)
-        this.$router.push({ name: "MyPage" });
+      if (this.id === "admin") {
+        // id가 "admin"인 경우에만 회원 목록을 가져옴
+        userStore
+          .login(this.id, this.password)
+          .then(() => {
+            // 로그인이 성공하면 회원 목록 가져오기
+            alert("관리자 로그인 성공!");
+          })
+          .catch((error) => {
+            console.error("로그인 실패:", error);
+          });
       } else {
-        alert("사용자가 없습니다");
-        // 사용자에게 알림 메시지 표시
-        // this.$q.notify({
-        //   color: "negative",
-        //   position: "top",
-        //   message: "이메일 또는 비밀번호가 잘못되었습니다.",
-        //   icon: "report_problem",
-        // });
-        */
+        userStore
+          .login(this.id, this.password)
+          .then(() => {
+            // 로그인이 성공했지만 회원 목록을 가져오지 않음
+            alert("로그인 성공!");
+            this.$router.push("/mypage"); // 마이페이지로 이동
+          })
+          .catch((error) => {
+            console.error("로그인 실패:", error);
+          });
+      }
     },
   },
 };
+
+/*
+const foundUser = userStore.users.find(
+  (user) => user.id === this.id && user.password === this.password
+);
+console.log(foundUser);
+
+// 사용자가 존재하는 경우
+if (foundUser) {
+  alert("로그인 성공");
+  userStore.currentUser = foundUser;
+  // console.log(userStore.currentUser)
+  this.$router.push({ name: "MyPage" });
+} else {
+  alert("사용자가 없습니다");
+  // 사용자에게 알림 메시지 표시
+  // this.$q.notify({
+  //   color: "negative",
+  //   position: "top",
+  //   message: "이메일 또는 비밀번호가 잘못되었습니다.",
+  //   icon: "report_problem",
+  // });
+  */
 </script>
 
 <template>
