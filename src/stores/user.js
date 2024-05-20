@@ -1,32 +1,30 @@
 import { defineStore } from "pinia";
+import axios from "axios";
 
 export const useUserStore = defineStore({
   id: "userList",
   state: () => ({
-    users: [
-      { id: "ssafy", 
-        password: "ssafy", 
-        name: "이소희", 
-        email: "s@s.com" 
-      },
-      { id: "ssafy1234", 
-        password: "ssafy1234", 
-        name: "이또잉", 
-        email: "s1@s1.com" 
-      },
-      { id: "admin", 
-        password: "admin", 
-        name: "관리자", 
-        email: "ssafy@ssafy.com" 
-      }
-    ],
+    users: [],
     currentUser: null,
   }),
   actions: {
-    addUser(newUser) {
-      this.users.push(newUser);
+    async getBoardList(pageNo) {
+      try {
+        const response = await axios.get(`http://localhost:8080/manage/member/list`);
+        this.users = response.data;
+      } catch (error) {
+        console.error("사용자 목록을 가져오는 데 실패했습니다:", error);
+      }
     },
-    setCurrentUser(user) {
+    async login(id, password) {
+      try {
+        const response = await axios.post(`/api/User/signin`, { id, password });
+        this.currentUser = response.data;
+      } catch (error) {
+        console.error("로그인 실패:", error);
+      }
+    },
+    ntUser(user) {
       this.currentUser = user;
     },
     updateCurrentUserField(field, value) {
@@ -36,6 +34,6 @@ export const useUserStore = defineStore({
     },
     deleteUser() {
       this.currentUser = null;
-    }
+    },
   },
 });
