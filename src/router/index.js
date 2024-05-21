@@ -11,23 +11,11 @@ const routes = [
     component: () => import("@/views/Home.vue"),
   },
   {
-    path: "/storeboard/list/:pageNo?",
+    path: "/storeboard",
     name: "StoreBoard",
     component: () => import("@/views/Store/StoreBoard.vue"),
     props: true,
   },
-  // {
-  //   path: "/storeboard/list",
-  //   name: "StoreBoard",
-  //   component: () => import("@/views/Store/StoreBoard.vue"),
-  //   children: [
-  //     {
-  //       path: ":pageNo",
-  //       name: "StoreBoardPage",
-  //       component: () => import("@/views/Store/StoreBoardList.vue"),
-  //     },
-  //   ],
-  // },
   {
     path: "/storeboard/detail",
     name: "StoreBoardDetail",

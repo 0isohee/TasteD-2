@@ -7,9 +7,9 @@ export const useStoreStore = defineStore({
     stores: [],
   }),
   actions: {
-    async getStoreList(pageNo) {
+    async getStoreList() {
       try {
-        const response = await getStore(pageNo);
+        const response = await getStore();
         this.stores = response.data;
         console.log(response.data);
       } catch (error) {

@@ -1,14 +1,14 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "http://192.168.120.81:8080",
   timeout: 5000,
   "Access-Control-Allow-Origin": "http://localhost:4000",
   "Access-Control-Allow-Credentials": "true",
 });
 
-async function getStore(pageNo) {
-  return await instance.get(`/store/list/${pageNo}`);
+async function getStore() {
+  return await instance.get(`/store/list`);
 }
 
 async function getStoreDatail(no) {
