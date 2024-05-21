@@ -1,5 +1,6 @@
 <script>
 import { useReviewStore } from "@/stores/review";
+import { useUserStore } from "@/stores/user.js";
 
 export default {
   name: "ReviewBoardDetail",
@@ -13,25 +14,29 @@ export default {
     const reviewStore = useReviewStore();
     const reviewId = this.$route.params.id;
     this.selectedReview = reviewStore.reviews[reviewId - 1];
-    // console.dir(this.selectedReview);
     this.setWriterIsAdmin(); // 작성자가 admin인지 여부를 설정하는 메서드 호출
   },
   methods: {
-    // 작성자가 admin인지 여부를 설정하는 메서드
     setWriterIsAdmin() {
-      // 쿠키 값 가져오기
-      // 쿠키 가져오기
-      const cookies = document.cookie.split(":").map((cookie) => cookie.trim());
-      console.log(cookies);
-
-      const isAdmin = cookies.some((cookie) => cookie.startsWith("id=admin"));
-
-      if (this.selectedReview && this.selectedReview.writer === "admin" && isAdmin) {
-        this.writerIsAdmin = true;
-      } else {
-        this.writerIsAdmin = false;
-      }
+      // const cookies = cookieValue.split(";").map((cookie) => cookie.trim()); // 쿠키 문자열을 세미콜론으로 구분하여 배열로 변환하고 각 요소의 공백을 제거합니다.
+      // for (const cookie of cookies) {
+      //   const [name, value] = cookie.split(":").map((item) => item.trim()); // 각 쿠키를 콜론(:)으로 분할하여 이름과 값으로 나눕니다.
+      //   if (name === "admin" && value === "admin") {
+      //     this.writerIsAdmin = true; // 작성자가 admin인 경우로 설정합니다.
+      //     return; // 검색 중지
+      //   }
+      // }
+      // // 여기까지 코드가 도달했다면 admin 쿠키를 찾지 못한 것이므로 작성자는 admin이 아닙니다.
+      // this.writerIsAdmin = false;
+      // const userStore = useUserStore();
+      // console.log(userStore.currentUser);
+      // if (userStore.currentUser.id === "admin") {
+      //   this.writerIsAdmin = true;
+      // } else {
+      //   this.writerIsAdmin = false;
+      // }
     },
+
     goToEdit() {
       this.$router.push({ name: "ReviewBoardEdit", params: { id: this.selectedReview.id } });
     },
@@ -130,7 +135,7 @@ export default {
                 </div>
               </div>
 
-              <div class="d-flex justify-end mt-5" v-show="isAdmin">
+              <div class="d-flex justify-end mt-5" v-show="writerIsAdmin">
                 <div style="margin-right: 10px">
                   <v-btn color="hover" @click="goToEdit">후기 수정</v-btn>
                 </div>
