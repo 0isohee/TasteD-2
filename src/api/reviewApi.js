@@ -6,3 +6,9 @@ const instance = axios.create({
   "Access-Control-Allow-Origin": "http://localhost:4000",
   "Access-Control-Allow-Credentials": "true",
 });
+
+async function getReview() {
+  return await instance.get(`/review/list`);
+}
+
+export { getReview };
