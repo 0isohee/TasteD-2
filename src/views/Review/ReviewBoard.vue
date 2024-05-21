@@ -1,10 +1,31 @@
 <script>
+import ReviewBoardList from "@/views/Review/ReviewBoardList.vue";
+import { ref, computed, onMounted } from "vue";
+import { useReviewStore } from "@/stores/review.js";
+
 export default {
   name: "ReviewBoard",
   components: {
-    ReviewBoardList: () => import("@/views/Review/ReviewBoardList.vue"),
+    ReviewBoardList,
   },
   methods: {},
+  setup() {
+    const reviewStore = useReviewStore();
+    const stores = ref(reviewStore.stores);
+    const currentPage = ref(1); // 현재 페이지 번호
+    const storesPerPage = 12; // 페이지당 보여줄 가게 수
+
+    onMounted(() => {
+      reviewStore.getReviewList();
+    });
+
+    return {
+      reviewStore,
+      stores,
+      currentPage,
+      storesPerPage,
+    };
+  },
 };
 </script>
 

@@ -1,5 +1,5 @@
 <script>
-import { useReviewStore } from "@/stores/review";
+import { useReviewStore } from "@/stores/review.js";
 import { ref, computed } from "vue";
 
 export default {
