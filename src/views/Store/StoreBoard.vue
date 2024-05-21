@@ -69,6 +69,7 @@ export default {
         <v-pagination v-model="currentPage" :length="totalPages" @input="changePage"></v-pagination>
       </v-col>
     </v-row>
+    
   </div>
 </template>
 
