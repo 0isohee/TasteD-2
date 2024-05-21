@@ -14,30 +14,9 @@ export default {
     joinMember() {
       this.$router.push({ name: "Join" });
     },
-    loginMember() {
-      if (this.id === "admin") {
-        // id가 "admin"인 경우에만 회원 목록을 가져옴
-        userStore
-          .login(this.id, this.password)
-          .then(() => {
-            // 로그인이 성공하면 회원 목록 가져오기
-            alert("관리자 로그인 성공!");
-          })
-          .catch((error) => {
-            console.error("로그인 실패:", error);
-          });
-      } else {
-        userStore
-          .login(this.id, this.password)
-          .then(() => {
-            // 로그인이 성공했지만 회원 목록을 가져오지 않음
-            alert("로그인 성공!");
-            this.$router.push("/mypage"); // 마이페이지로 이동
-          })
-          .catch((error) => {
-            console.error("로그인 실패:", error);
-          });
-      }
+    loginMember(id, password) {
+      userStore.login(id, password);
+      alert("로그인 성공!");
     },
   },
 };
