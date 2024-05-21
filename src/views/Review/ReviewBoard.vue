@@ -10,6 +10,7 @@ export default {
   },
   setup() {
     const reviewStore = useReviewStore();
+
     const reviews = ref([]); // 전체 리뷰 데이터 배열
     const currentPage = ref(1); // 현재 페이지 번호
     const reviewsPerPage = 10; // 페이지당 보여줄 리뷰 수

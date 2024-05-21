@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "http://192.168.120.81:8080",
   timeout: 5000,
   "Access-Control-Allow-Origin": "http://localhost:4000",
   "Access-Control-Allow-Credentials": "true",
@@ -9,7 +9,9 @@ const instance = axios.create({
 
 // 로그인 기능 data post
 async function loginUser({ id, password }) {
-  console.dir({ id, password });
+  // console.dir({ id, password });
+  const cookieValue = document.cookie;
+  console.dir(cookieValue);
   return await instance.post("/user/signin", { id, password }, { withCredentials: true });
 }
 
@@ -18,7 +20,6 @@ async function logoutUser() {
 }
 
 async function deleteUser(userData) {
-  console.log(userData);
   return await instance.delete("/user/delete", userData, { withCredentials: true });
 }
 
