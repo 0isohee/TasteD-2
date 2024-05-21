@@ -8,8 +8,11 @@ export default {
   },
   methods: {
     goToBoardDetail(no) {
-      storeStore.getStoreDatail(no);
-      this.$router.push({ name: "StoreBoardDetail", params: { id: no } });
+      // storeStore.getStoreDetail(no);
+      this.$router.push({
+        name: "StoreBoardDetail",
+        params: { id: no },
+      });
     },
   },
 };

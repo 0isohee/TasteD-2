@@ -9,7 +9,7 @@ const instance = axios.create({
 
 // 로그인 기능 data post
 async function loginUser(userData) {
-  //   console.dir(userData);
+  console.dir(userData);
   return await instance.post("/user/signin", userData, { withCredentials: true });
 }
 
