@@ -14,9 +14,7 @@ export default {
   methods: {
     findUserId() {
       const userStore = useUserStore();
-      const foundUser = userStore.users.find(
-        (user) => user.name === this.name && user.email === this.email
-      );
+      const foundUser = userStore.findId(this.name, this.email);
       if (foundUser) {
         this.foundId = foundUser.id;
       } else {

@@ -28,4 +28,8 @@ async function joinUser(newUser) {
   return await instance.post("/user/signup", newUser, { withCredentials: true });
 }
 
-export { loginUser, logoutUser, deleteUser, getMember, joinUser };
+async function findUserId(user) {
+  return await instance.post("/user/findId", user, { withCredentials: true });
+}
+
+export { loginUser, logoutUser, deleteUser, getMember, joinUser, findUserId };

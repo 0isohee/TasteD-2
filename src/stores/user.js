@@ -1,5 +1,12 @@
 import { defineStore } from "pinia";
-import { loginUser, logoutUser, deleteUser, getMember, joinUser } from "@/api/userApi.js";
+import {
+  loginUser,
+  logoutUser,
+  deleteUser,
+  getMember,
+  joinUser,
+  findUserId,
+} from "@/api/userApi.js";
 
 export const useUserStore = defineStore({
   id: "userList",
@@ -12,7 +19,6 @@ export const useUserStore = defineStore({
       try {
         const response = await loginUser({ id, password });
         this.currentUser = response.data;
-        console.dir(document.cookie);
       } catch (error) {
         console.error("로그인 실패:", error);
       }
@@ -48,6 +54,14 @@ export const useUserStore = defineStore({
         console.dir(response.data);
       } catch (error) {
         console.error("탈퇴 실패:", error);
+      }
+    },
+    async findId(name, email) {
+      try {
+        const response = await findUserId({ name, email });
+        return response.data;
+      } catch (error) {
+        console.error("아이디 찾기 실패:", error);
       }
     },
     updateCurrentUserField(field, value) {
