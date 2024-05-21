@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://192.168.120.81:8080",
+  baseURL: "http://localhost:8080",
   timeout: 5000,
   "Access-Control-Allow-Origin": "http://localhost:4000",
   "Access-Control-Allow-Credentials": "true",
@@ -23,7 +23,7 @@ async function deleteUser(userData) {
 }
 
 async function getMember() {
-  return await instance.get("/manage/member/list/1", { withCredentials: true });
+  return await instance.get("/manage/member/list", { withCredentials: true });
 }
 
 async function joinUser(newUser) {
