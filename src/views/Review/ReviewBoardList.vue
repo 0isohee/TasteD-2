@@ -1,6 +1,6 @@
 <script>
 import { useReviewStore } from "@/stores/review.js";
-
+const reviewStore = useReviewStore();
 export default {
   name: "ReviewBoardList",
   props: {
@@ -10,9 +10,8 @@ export default {
     },
   },
   methods: {
-    goToStoreDetail(no) {
-      const reviewStore = useReviewStore();
-      reviewStore.getReviewDetail(no);
+    goToReviewDetail(no) {
+      // reviewStore.getReviewDetail(no);
       this.$router.push({ name: "ReviewBoardDetail", params: { id: no } });
     },
     addReview() {
@@ -42,7 +41,7 @@ export default {
         <v-row v-for="review in reviews" :key="review.no" class="py-2">
           <!-- 리뷰 카드 -->
           <v-col cols="12" md="6" lg="5">
-            <v-card height="100%" flat @click.prevent="goToStoreDetail(review.no)">
+            <v-card height="100%" flat @click.prevent="goToReviewDetail(review.no)">
               <v-img :src="review.images" :aspect-ratio="16 / 9" height="100%"></v-img>
             </v-card>
           </v-col>
