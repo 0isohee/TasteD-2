@@ -136,7 +136,7 @@ export default {
       }
     },
     deleteUser() {
-      console.log("here" + this.id + this.password);
+      userStore.quitUser(this.id);
       alert("탈퇴가 완료되었습니다.");
       this.$router.push({ name: "Home" });
     },

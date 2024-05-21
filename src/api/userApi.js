@@ -9,9 +9,6 @@ const instance = axios.create({
 
 // 로그인 기능 data post
 async function loginUser({ id, password }) {
-  // console.dir({ id, password });
-  const cookieValue = document.cookie;
-  console.dir(cookieValue);
   return await instance.post("/user/signin", { id, password }, { withCredentials: true });
 }
 
@@ -19,8 +16,8 @@ async function logoutUser() {
   return await instance.get("/user/signout", { withCredentials: true });
 }
 
-async function deleteUser(userData) {
-  return await instance.delete("/user/delete", userData, { withCredentials: true });
+async function deleteUser(id) {
+  return await instance.delete(`/user/delete/${id}`, { withCredentials: true });
 }
 
 async function getMember() {
