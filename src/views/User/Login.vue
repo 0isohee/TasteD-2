@@ -17,6 +17,7 @@ export default {
     loginMember(id, password) {
       userStore.login(id, password);
       alert("로그인 성공!");
+      this.$router.push({ name: "Home" });
     },
   },
 };

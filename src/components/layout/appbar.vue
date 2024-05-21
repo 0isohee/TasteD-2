@@ -93,10 +93,6 @@ export default {
         title: "후기 공유",
         to: "/reviewboard",
       },
-      {
-        title: "미정",
-        to: "/authors",
-      },
     ],
     showMenu: false,
   }),
@@ -116,17 +112,21 @@ export default {
       ];
       if (userStore.currentUser) {
         if (userStore.currentUser.id === "admin") {
-          items.push({
-            text: "회원관리",
-            action: "Admin",
-            to: "/admin",
-          });
+          items = [
+            {
+              text: "회원관리",
+              action: "Admin",
+              to: "/admin",
+            },
+          ];
         } else {
-          items.push({
-            text: "마이페이지",
-            action: "MyPage",
-            to: "/mypage",
-          });
+          items = [
+            {
+              text: "마이페이지",
+              action: "MyPage",
+              to: "/mypage",
+            },
+          ];
         }
       }
       return items;
