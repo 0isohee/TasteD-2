@@ -25,12 +25,13 @@ const routes = [
     path: "/reviewboard",
     name: "ReviewBoard",
     component: () => import("@/views/Review/ReviewBoard.vue"),
+    props: true,
   },
-  {
-    path: "/reviewboard/list",
-    name: "ReviewBoardList",
-    component: () => import("@/views/Review/ReviewBoardList.vue"),
-  },
+  // {
+  //   path: "/reviewboard/list",
+  //   name: "ReviewBoardList",
+  //   component: () => import("@/views/Review/ReviewBoardList.vue"),
+  // },
   {
     path: "/reviewboard/detail/:id",
     name: "ReviewBoardDetail",
