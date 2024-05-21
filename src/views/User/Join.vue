@@ -23,13 +23,13 @@ export default {
         const newUser = {
           name: this.name,
           id: this.id,
-          domain: this.email,
+          domain: this.email.trimEnd("@"),
           password: this.password,
           phone: this.phone,
         };
         userStore.addUser(newUser);
 
-        this.$router.push({ name: "MyPage" });
+        this.$router.push({ name: "Login" });
       }
     },
   },

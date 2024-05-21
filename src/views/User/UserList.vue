@@ -4,7 +4,7 @@
     <v-divider></v-divider>
 
     <div class="pt-4">
-      <div class="d-flex align-center mb-6" v-for="(user, index) in users" :key="user.id">
+      <div class="d-flex align-center mb-6" v-for="(user, index) in userStore.users" :key="user.id">
         <v-avatar color="accent" size="64">
           <v-icon dark x-large>mdi-feather</v-icon>
         </v-avatar>
@@ -27,7 +27,7 @@
               >,
             </div>
             <div class="text-subtitle-1">
-              이메일: <span class="font-weight-bold">{{ user.email }}</span>
+              이메일: <span class="font-weight-bold">{{ user.domain }}</span>
             </div>
           </div>
         </div>
@@ -44,19 +44,18 @@ export default {
   setup() {
     const userStore = useUserStore();
     userStore.getMemberList();
-    // const users = userStore.users;
 
     const deleteMember = (index) => {
-      const userToDelete = users[index];
+      const userToDelete = userStore.users[index];
       const confirmDelete = confirm(`${userToDelete.name} 님을 삭제하시겠습니까?`);
       if (confirmDelete) {
-        users.splice(index, 1);
+        userStore.users.splice(index, 1);
         alert("회원을 삭제하였습니다. 회원 관리 폼으로 이동합니다.");
       }
     };
 
     return {
-      users,
+      userStore,
       deleteMember,
     };
   },
