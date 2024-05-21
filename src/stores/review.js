@@ -13,8 +13,7 @@ export const useReviewStore = defineStore({
         const response = await getReview();
         this.reviews = response.data;
         console.dir(this.reviews);
-        // this.getReviewDetail(4);
-        // console.dir(this.review);
+       
       } catch (error) {
         console.error("리뷰 가져오기 실패 : ", error);
       }

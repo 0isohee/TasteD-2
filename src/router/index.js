@@ -27,11 +27,7 @@ const routes = [
     component: () => import("@/views/Review/ReviewBoard.vue"),
     props: true,
   },
-  // {
-  //   path: "/reviewboard/list",
-  //   name: "ReviewBoardList",
-  //   component: () => import("@/views/Review/ReviewBoardList.vue"),
-  // },
+
   {
     path: "/reviewboard/detail/:id",
     name: "ReviewBoardDetail",
