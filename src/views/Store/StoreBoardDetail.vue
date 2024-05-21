@@ -8,8 +8,11 @@ export default {
   setup() {
     const storeStore = useStoreStore();
     const router = useRoute();
-    const nowStore = storeStore.store; // 현재 상점 데이터를 저장할 변수
+    const nowStore = storeStore.stores[router.params.id - 1]; // 현재 상점 데이터를 저장할 변수
 
+    onMounted(() => {
+      // nowStore = null;
+    });
     console.log(nowStore);
     return {
       nowStore,
