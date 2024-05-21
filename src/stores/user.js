@@ -12,7 +12,6 @@ export const useUserStore = defineStore({
       try {
         const response = await loginUser({ id, password });
         this.currentUser = response.data;
-        console.log(this.currentUser);
       } catch (error) {
         console.error("로그인 실패:", error);
       }

@@ -1,21 +1,16 @@
 <script>
-import { ref, onMounted } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import { useStoreStore } from "@/stores/store.js";
-import { useRoute } from "vue-router";
+import { useRoute } from "vue-router/composables";
 
 export default {
   name: "StoreBoardDetail",
   setup() {
     const storeStore = useStoreStore();
     const router = useRoute();
-    const nowStore = ref(null);
+    const nowStore = storeStore.store; // 현재 상점 데이터를 저장할 변수
 
-    onMounted(async () => {
-      const storeId = router.params.id;
-      nowStore.value = await storeStore.getStoreDetail(storeId);
-      console.log(nowStore.value);
-    });
-
+    console.log(nowStore);
     return {
       nowStore,
     };
@@ -24,7 +19,7 @@ export default {
 </script>
 
 <template>
-  <div v-if="nowStore && nowStore.value">
+  <div>
     <v-row justify="center">
       <v-col cols="12" lg="12" xl="8">
         <div>
@@ -42,19 +37,24 @@ export default {
                   <v-btn color="accent">Best</v-btn>
                 </div>
 
-                <div class="text-h4 font-weight-bold primary--text pt-4">
-                  <h4>{{ nowStore.value.addr }}</h4>
+                <div class="text-h4 font-weight-bold black--text pt-4">
+                  <h3>{{ nowStore.restname }}</h3>
+                  <h6>{{ nowStore.addr }}</h6>
                 </div>
 
-                <div class="text-body-1 py-4">{{ nowStore.value.recommend }}</div>
+                <div class="text-h6 font-weight mainColor--text py-4">
+                  추천메뉴 : {{ nowStore.recommend }}
+                </div>
 
-                <div class="d-flex align-center justify-space-between">
+                <div class="text-h6 font-weight mainColor--text mb-4">
+                  휴무일 : {{ nowStore.hldyguide }}
+                </div>
+
+                <!-- <div class="d-flex align-center justify-space-between">
                   <div class="d-flex align-center">
                     <v-avatar color="accent" size="36">
                       <v-icon dark>mdi-heart</v-icon>
                     </v-avatar>
-
-                    <div class="pl-2 text-body-1">{{ nowStore.value.hldyguide }}</div>
                   </div>
 
                   <div class="d-flex align-center">
@@ -66,28 +66,28 @@ export default {
                       </v-chip>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <v-divider class="my-4"></v-divider>
 
-                <div>
-                  <p class="text-subtitle-1 primary--text font-weight-medium">
-                    {{ nowStore.value.info }}
+                <!-- <div>
+                  <p class="text-subtitle-1 mainColor--text font-weight-medium">
+                    {{ nowStore.info }}
                   </p>
-                </div>
+                </div> -->
 
                 <div class="py-4">
                   <v-alert
-                    class="font-italic text-h6 text-center"
+                    class="font-italic text-h text-center"
                     border="left"
                     colored-border
-                    color="accent"
+                    color="white"
                   >
-                    안뇽하세요
+                    {{ nowStore.info }}
                   </v-alert>
                 </div>
 
-                <div class="text-h5 primary--text font-weight-bold">
+                <!-- <div class="text-h5 primary--text font-weight-bold">
                   바꿀 예정
                   <p class="text-subtitle-1 primary--text font-weight-medium mt-5">준비중</p>
                 </div>
@@ -129,7 +129,7 @@ export default {
 
                     <p>준비중</p>
                   </div>
-                </div>
+                </div> 
 
                 <div class="d-flex align-center justify-space-between mt-8">
                   <div>
@@ -147,8 +147,9 @@ export default {
                       </v-col>
                     </v-row>
                   </div>
+                </div>
 
-                  <div class="text-h5">
+                 <div class="text-h5">
                     Share >
                     <v-btn icon large>
                       <v-icon large color="primary">mdi-instagram</v-icon>
@@ -165,9 +166,9 @@ export default {
                       <v-icon large color="primary">mdi-youtube</v-icon>
                     </v-btn>
                   </div>
-                </div>
+                </div> -->
 
-                <div>
+                <!-- <div>
                   <v-row justify="space-between">
                     <v-col cols="12" md="6" lg="4">
                       <div class="d-flex align-center">
@@ -195,7 +196,7 @@ export default {
                       </div>
                     </v-col>
                   </v-row>
-                </div>
+                </div> -->
               </v-card-text>
             </v-card>
           </div>

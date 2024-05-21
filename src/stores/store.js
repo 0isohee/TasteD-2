@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import {
   getStore,
-  getStoreDatailInfo,
+  getStoreDetailInfo,
   registStore,
   updateStore,
   deleteStore,
@@ -23,9 +23,9 @@ export const useStoreStore = defineStore({
         console.error("맛집 가져오기 실패:", error);
       }
     },
-    async getStoreDatail(no) {
+    async getStoreDetail(no) {
       try {
-        const response = await getStoreDatailInfo(no);
+        const response = await getStoreDetailInfo(no);
         this.store = response.data;
         // console.log(response.data);
       } catch (error) {

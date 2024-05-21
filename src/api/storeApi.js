@@ -11,7 +11,7 @@ async function getStore() {
   return await instance.get(`/store/list`);
 }
 
-async function getStoreDatailInfo(no) {
+async function getStoreDetailInfo(no) {
   return await instance.get(`/store/detail/${no}`);
 }
 
@@ -26,4 +26,4 @@ async function updateStore(no, newStore) {
 async function deleteStore(no) {
   return await instance.delete(`/store/manage/delete`, no);
 }
-export { getStore, getStoreDatailInfo, registStore, updateStore, deleteStore };
+export { getStore, getStoreDetailInfo, registStore, updateStore, deleteStore };
