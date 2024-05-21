@@ -12,6 +12,7 @@ export const useUserStore = defineStore({
       try {
         const response = await loginUser({ id, password });
         this.currentUser = response.data;
+        console.dir(document.cookie);
       } catch (error) {
         console.error("로그인 실패:", error);
       }
@@ -41,10 +42,10 @@ export const useUserStore = defineStore({
         console.error("로그인 실패:", error);
       }
     },
-    async quitUser(id, password) {
+    async quitUser(id) {
       try {
-        const response = await deleteUser(id, password);
-        this.currentUser = response.data;
+        const response = await deleteUser(id);
+        console.dir(response.data);
       } catch (error) {
         console.error("탈퇴 실패:", error);
       }
