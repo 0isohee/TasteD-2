@@ -14,12 +14,12 @@ async function loginUser(userData) {
 }
 
 async function logoutUser() {
-  return await instance.get("/user/signout");
+  return await instance.get("/user/signout", { withCredentials: true });
 }
 
 async function deleteUser(userData) {
   console.log(userData);
-  return await instance.delete("/user/delete", userData);
+  return await instance.delete("/user/delete", userData, { withCredentials: true });
 }
 
 async function getMember() {
@@ -27,7 +27,7 @@ async function getMember() {
 }
 
 async function joinUser(newUser) {
-  return await instance.post("/user/signup", newUser);
+  return await instance.post("/user/signup", newUser, { withCredentials: true });
 }
 
 export { loginUser, logoutUser, deleteUser, getMember, joinUser };

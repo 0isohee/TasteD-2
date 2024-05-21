@@ -4,6 +4,7 @@ import vuetify from "./plugins/vuetify";
 import router from "./router";
 import BootstrapVue from "bootstrap-vue";
 import { createPinia } from "pinia";
+import "./css/main.css";
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);

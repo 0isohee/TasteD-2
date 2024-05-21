@@ -26,4 +26,4 @@ async function updateStore(no, newStore) {
 async function deleteStore(no) {
   return await instance.delete(`/store/manage/delete`, no);
 }
-export { getStore, getStoreDatail, registStore, updateStore, deleteStore};
+export { getStore, getStoreDatail, registStore, updateStore, deleteStore };

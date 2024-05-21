@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import "@/css/main.css";
 export default {
   name: "App",
 
