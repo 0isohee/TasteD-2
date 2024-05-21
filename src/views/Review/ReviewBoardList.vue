@@ -2,6 +2,8 @@
 import { useReviewStore } from "@/stores/review.js";
 import { ref, computed } from "vue";
 
+const reviewStore = useReviewStore();
+
 export default {
   name: "ReviewBoardList",
   setup() {
@@ -63,8 +65,9 @@ export default {
     };
   },
   methods: {
-    goToStoreDetail(reviewId) {
-      this.$router.push({ name: "ReviewBoardDetail", params: { id: reviewId } });
+    goToStoreDetail(no) {
+      reviewStore.getReviewDetail(no);
+      this.$router.push({ name: "ReviewBoardDetail", params: { id: no } });
     },
     addReview() {
       this.$router.push({ name: "ReviewBoardInsert" });
