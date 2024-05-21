@@ -1,12 +1,15 @@
 <script>
+import { useStoreStore } from "@/stores/store.js";
+const storeStore = useStoreStore();
 export default {
   name: "StoreBoardList",
   props: {
     currentStore: Array,
   },
   methods: {
-    goToBoardDetail(id) {
-      this.$router.push({ name: "StoreBoardDetail", params: { id } });
+    goToBoardDetail(no) {
+      storeStore.getStoreDatail(no);
+      this.$router.push({ name: "StoreBoardDetail", params: { id: no } });
     },
   },
 };
@@ -29,7 +32,7 @@ export default {
               :color="hover ? 'white' : 'transparent'"
               :elevation="hover ? 12 : 0"
               hover
-              @click.prevent="goToBoardDetail(store.id)"
+              @click.prevent="goToBoardDetail(store.no)"
             >
               <v-img
                 src="/images/preview.png"

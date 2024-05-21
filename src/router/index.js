@@ -17,7 +17,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/storeboard/detail",
+    path: "/storeboard/detail/:id",
     name: "StoreBoardDetail",
     component: () => import("@/views/Store/StoreBoardDetail.vue"),
   },

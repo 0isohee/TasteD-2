@@ -1,18 +1,30 @@
 <script>
+import { ref, onMounted } from "vue";
 import { useStoreStore } from "@/stores/store.js";
-const userStore = useStoreStore();
+import { useRoute } from "vue-router";
 
 export default {
-name: "StoreBoardDetail",
-components: {
-// siderbar: () => import("@/components/details/sidebar")
-}
+  name: "StoreBoardDetail",
+  setup() {
+    const storeStore = useStoreStore();
+    const router = useRoute();
+    const nowStore = ref(null);
+
+    onMounted(async () => {
+      const storeId = router.params.id;
+      nowStore.value = await storeStore.getStoreDetail(storeId);
+      console.log(nowStore.value);
+    });
+
+    return {
+      nowStore,
+    };
+  },
 };
 </script>
 
-
 <template>
-  <div>
+  <div v-if="nowStore && nowStore.value">
     <v-row justify="center">
       <v-col cols="12" lg="12" xl="8">
         <div>
@@ -31,12 +43,10 @@ components: {
                 </div>
 
                 <div class="text-h4 font-weight-bold primary--text pt-4">
-                  <h4>대전 빵집 | 호두베이크샵</h4>
+                  <h4>{{ nowStore.value.addr }}</h4>
                 </div>
 
-                <div class="text-body-1 py-4">
-                  휘낭시에와 스콘 맛집입니다
-                </div>
+                <div class="text-body-1 py-4">{{ nowStore.value.recommend }}</div>
 
                 <div class="d-flex align-center justify-space-between">
                   <div class="d-flex align-center">
@@ -44,14 +54,12 @@ components: {
                       <v-icon dark>mdi-heart</v-icon>
                     </v-avatar>
 
-                    <div class="pl-2 text-body-1">SoHee Lee · 10 May 2024</div>
+                    <div class="pl-2 text-body-1">{{ nowStore.value.hldyguide }}</div>
                   </div>
 
                   <div class="d-flex align-center">
                     <div>
-                      <v-chip small color="transparent">
-                        <v-icon left>mdi-eye</v-icon>1.4k
-                      </v-chip>
+                      <v-chip small color="transparent"> <v-icon left>mdi-eye</v-icon>1.4k </v-chip>
 
                       <v-chip small color="transparent">
                         <v-icon left>mdi-comment-outline</v-icon>7 Comment
@@ -64,7 +72,7 @@ components: {
 
                 <div>
                   <p class="text-subtitle-1 primary--text font-weight-medium">
-                    안뇽하세요
+                    {{ nowStore.value.info }}
                   </p>
                 </div>
 
@@ -81,9 +89,7 @@ components: {
 
                 <div class="text-h5 primary--text font-weight-bold">
                   바꿀 예정
-                  <p class="text-subtitle-1 primary--text font-weight-medium mt-5">
-                    준비중
-                  </p>
+                  <p class="text-subtitle-1 primary--text font-weight-medium mt-5">준비중</p>
                 </div>
 
                 <div class="my-4">
@@ -114,22 +120,14 @@ components: {
                   준비중
                   <div class="text-subtitle-1 primary--text font-weight-medium mt-5">
                     <ul>
-                      <li class="my-2">
-                        준비중
-                      </li>
+                      <li class="my-2">준비중</li>
 
-                      <li class="my-2">
-                        준비중
-                      </li>
+                      <li class="my-2">준비중</li>
 
-                      <li class="my-2">
-                        준비중
-                      </li>
+                      <li class="my-2">준비중</li>
                     </ul>
 
-                    <p>
-                      준비중
-                    </p>
+                    <p>준비중</p>
                   </div>
                 </div>
 
@@ -166,7 +164,6 @@ components: {
                     <v-btn icon large>
                       <v-icon large color="primary">mdi-youtube</v-icon>
                     </v-btn>
-
                   </div>
                 </div>
 
@@ -204,13 +201,6 @@ components: {
           </div>
         </div>
       </v-col>
-
-      <v-col>
-        <div>
-          <siderbar />
-        </div>
-      </v-col>
     </v-row>
   </div>
 </template>
-
