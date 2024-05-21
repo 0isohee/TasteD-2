@@ -12,14 +12,21 @@ export default {
   created() {
     const reviewStore = useReviewStore();
     const reviewId = this.$route.params.id;
-    this.selectedReview = reviewStore.reviews.find((review) => review.id === reviewId);
+    this.selectedReview = reviewStore.reviews[reviewId - 1];
+    // console.dir(this.selectedReview);
     this.setWriterIsAdmin(); // 작성자가 admin인지 여부를 설정하는 메서드 호출
   },
   methods: {
     // 작성자가 admin인지 여부를 설정하는 메서드
     setWriterIsAdmin() {
-      // console.log(this.selectedReview.writer);
-      if (this.selectedReview && this.selectedReview.writer === "admin") {
+      // 쿠키 값 가져오기
+      // 쿠키 가져오기
+      const cookies = document.cookie.split(":").map((cookie) => cookie.trim());
+      console.log(cookies);
+
+      const isAdmin = cookies.some((cookie) => cookie.startsWith("id=admin"));
+
+      if (this.selectedReview && this.selectedReview.writer === "admin" && isAdmin) {
         this.writerIsAdmin = true;
       } else {
         this.writerIsAdmin = false;
@@ -63,7 +70,6 @@ export default {
   },
 };
 </script>
-
 <template>
   <div>
     <v-row justify="center">
@@ -72,7 +78,7 @@ export default {
           <v-card flat color="transparent">
             <v-row v-if="selectedReview" justify="center">
               <v-col
-                v-for="(img, index) in selectedReview.images.slice(0, 3)"
+                v-for="(img, index) in selectedReview.imageNames"
                 :key="index"
                 cols="12"
                 sm="4"
@@ -92,7 +98,11 @@ export default {
             <v-card-text v-if="selectedReview">
               <div class="mt-1">
                 <v-row>
-                  <v-col v-for="(tag, index) in selectedReview.tags" :key="index" cols="auto">
+                  <v-col
+                    v-for="(tag, index) in selectedReview.tag.split(' ')"
+                    :key="index"
+                    cols="auto"
+                  >
                     <v-chip color="accent">{{ tag }}</v-chip>
                   </v-col>
                 </v-row>
@@ -102,31 +112,34 @@ export default {
                 <h4>{{ selectedReview.title }}</h4>
               </div>
 
-              <div class="text-h5 font-weight-bold py-4">{{ selectedReview.storeName }}</div>
-              <div class="d-flex align-center justify-space-between">
-                <div class="d-flex text-align-right">
-                  <div class="pl-2 text-body-1 font-weight-bold">
-                    {{ selectedReview.storeAddress }}
-                  </div>
+              <div class="text-h5 font-weight-bold py-4">
+                {{ selectedReview.storeName }}
+              </div>
+              <div class="d-flex justify-space-between align-center">
+                <div class="text-body-1 font-weight-bold">
+                  {{ selectedReview.storeAddress }}
                 </div>
 
-                <div class="d-flex align-center">
-                  <div v-show="writerIsAdmin" style="margin-right: 10px">
-                    <v-btn color="hover" @click="goToEdit">후기 수정</v-btn>
+                <div class="text-right">
+                  <div class="text-body-1 font-weight-bold">
+                    작성자 : {{ selectedReview.writer }}
                   </div>
-                  <div v-show="writerIsAdmin">
-                    <v-btn color="hover" @click="goToDelete">후기 삭제</v-btn>
+                  <div class="text-body-1 font-weight-bold">
+                    작성 일자 : {{ selectedReview.createdate }}
                   </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-end mt-5" v-show="isAdmin">
+                <div style="margin-right: 10px">
+                  <v-btn color="hover" @click="goToEdit">후기 수정</v-btn>
+                </div>
+                <div>
+                  <v-btn color="hover" @click="goToDelete">후기 삭제</v-btn>
                 </div>
               </div>
 
               <v-divider class="my-4"></v-divider>
-
-              <div class="textArea">
-                <p class="text-subtitle-1 black--text font-weight-medium">
-                  {{ selectedReview.storeComment }}
-                </p>
-              </div>
 
               <div class="btnContainer">
                 <v-btn color="#a99b95" @click="goToList">글 목록</v-btn>
@@ -172,10 +185,28 @@ export default {
 <style scoped>
 .textArea {
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.author-date {
+  text-align: right;
 }
 .btnContainer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.d-flex {
+  display: flex;
+}
+.align-center {
+  align-items: center;
+}
+.justify-space-between {
+  justify-content: space-between;
+}
+.text-right {
+  text-align: right;
 }
 </style>
