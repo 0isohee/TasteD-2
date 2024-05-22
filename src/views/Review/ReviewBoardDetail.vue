@@ -13,8 +13,8 @@ export default {
   created() {
     const reviewStore = useReviewStore();
     const reviewId = this.$route.params.id;
-    // reviewStore.getReviewDetail(reviewId);
-    reviewStore.getReviewDetail(7);
+    reviewStore.getReviewDetail(reviewId);
+    // reviewStore.getReviewDetail(7);
 
     this.selectedReview = reviewStore.review;
     console.log(this.selectedReview);
@@ -70,7 +70,7 @@ export default {
                 lg="4"
               >
                 <v-img
-                  :src="`http://localhost:4000/upload/imageUpload/${img}`"
+                  :src="'http://192.168.120.81:8080/' + img"
                   :aspect-ratio="1 / 1"
                   gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                   width="100%"
