@@ -50,7 +50,7 @@ export default {
     setWriterIsAdmin() {
       const userStore = useUserStore();
       const currentUser = userStore.currentUser;
-      if (currentUser.id === 'admin' || currentUser.name === this.selectedReview.writer){
+      if (currentUser.id === 'admin' || currentUser.id === this.selectedReview.writer){
         this.writerIsAdmin = true;
       }
       else {

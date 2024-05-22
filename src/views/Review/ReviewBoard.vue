@@ -32,9 +32,10 @@ export default {
       currentPage.value = page; // 현재 페이지 번호 업데이트
     };
 
-    onMounted(async () => {
-      await reviewStore.getReviewList();
+    onMounted(() => {
+      reviewStore.getReviewList();
       reviews.value = reviewStore.reviews;
+      
     });
 
     return {

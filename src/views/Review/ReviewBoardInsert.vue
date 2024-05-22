@@ -1,9 +1,6 @@
 <script>
-import { ref } from "vue";
 import { useReviewStore } from "@/stores/review";
-import { useUserStore } from "@/stores/user";
 const reviewStore = useReviewStore();
-const userStore = useUserStore();
 
 export default {
   name: "ReviewBoardInsert",
@@ -56,7 +53,7 @@ export default {
 
         alert("글 등록 완료");
 
-        this.goToList();
+        this.$router.push({ name: "ReviewBoard" });
       }
     },
     onTagInput() {
@@ -87,9 +84,6 @@ export default {
     removeImage(index) {
       this.formData.images.splice(index, 1);
       this.formData.imagePreviews.splice(index, 1);
-    },
-    goToList() {
-      this.$router.push({ name: "ReviewBoard" });
     },
     removeTag(index) {
       this.formData.tags.splice(index, 1);
