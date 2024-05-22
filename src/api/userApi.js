@@ -36,4 +36,8 @@ async function findUserPwd(user) {
   return await instance.post("/user/findPwd", user, { withCredentials: true });
 }
 
+async function findUserPwd(user) {
+  return await instance.post("/user/findPwd", user, { withCredentials: true });
+}
+
 export { loginUser, logoutUser, deleteUser, getMember, joinUser, findUserId, findUserPwd };

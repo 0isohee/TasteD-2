@@ -13,7 +13,7 @@
           <div class="d-flex justify-space-between">
             <div class="text-h6">{{ index + 1 }}번째 사용자</div>
             <div class="d-flex">
-              <v-btn @click="deleteMember(index)">회원 수정</v-btn>
+              <v-btn @click="editMember(index)">회원 수정</v-btn>
               <v-btn @click="deleteMember(index)">회원 삭제</v-btn>
             </div>
           </div>
