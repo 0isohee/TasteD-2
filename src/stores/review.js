@@ -43,7 +43,7 @@ export const useReviewStore = defineStore({
         console.dir(no, newReview);
         await editUserReview(no, newReview);
       } catch (error) {
-        console.error("리뷰 등록 실패:", error);
+        console.error("리뷰 수정 실패:", error);
       }
     },
     async deleteReview(no) {

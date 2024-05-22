@@ -1,47 +1,86 @@
 <script>
 import { useReviewStore } from "@/stores/review";
+const reviewStore = useReviewStore();
 
 export default {
   name: "ReviewBoardEdit",
   data() {
     return {
       editedReview: {
-        images: ["dddddd"], // 이미지 배열을 초기화
         tags: [], // 태그 배열을 초기화
       },
       newTag: "", // 새 태그를 추가하기 위한 데이터
+      previewImages: [], // 수정된 이미지의 미리보기 배열
     };
   },
   created() {
     const reviewStore = useReviewStore();
     const reviewId = this.$route.params.id;
-    // 리뷰 데이터를 가져와 수정할 객체에 복사
-    const bringreview = reviewStore.reviews.find((review) => review.no === reviewId);
+
+    reviewStore.getReviewDetail(reviewId);
+    const bringreview = reviewStore.review;
+
     if (bringreview) {
       this.editedReview = { ...bringreview };
       // 태그 문자열을 배열로 변환
       this.editedReview.tags = bringreview.tag.split(" ");
+      // 이미지 미리보기 배열 초기화
+      this.previewImages = this.editedReview.imageNames;
+      // console.log(this.previewImages);
     }
   },
   methods: {
     saveReview() {
-      const reviewStore = useReviewStore();
       // 태그 배열을 공백으로 구분된 문자열로 변환
-      this.editedReview.tag = this.editedReview.tags.join(" ");
-      // 수정된 리뷰를 리뷰 스토어에 업데이트
+      if (confirm("해당 리뷰를 수정하시겠습니까?")) {
+        const tagsString = this.editedReview.tags.join(" ");
+        const formData = new FormData();
+        const imageNames = [];
 
-      console.log(this.editedReview);
-      reviewStore.editReview(this.editedReview.no, this.editedReview);
+        const filesToUpload = [];
+        this.previewImages.forEach((image) => {
+          if (image instanceof File) {
+            filesToUpload.push(image);
+          } else {
+            imageNames.push(image);
+          }
+        });
+        // 이미지 파일들을 FormData에 추가
+        if (filesToUpload.length > 0) {
+          filesToUpload.forEach((file) => {
+            formData.append("images", file);
+          });
+        } else {
+          formData.append("images", null);
+        }
 
-      //수정 완료 알람창
-      alert("수정 완료");
+        console.log(imageNames);
+        formData.append("imageNames", imageNames);
+        const data = {
+          id: this.editedReview.id,
+          title: this.editedReview.title,
+          writer: this.editedReview.writer,
+          storeName: this.editedReview.storeName,
+          storeAddress: this.editedReview.storeAddress,
+          storeComment: this.editedReview.storeComment,
+          tag: tagsString,
+        };
+
+        // 나머지 폼 데이터를 FormData에 추가
+        formData.append(
+          "post",
+          new Blob([JSON.stringify(data)], {
+            type: "application/json",
+          })
+        );
+        // reviewStore에 전달
+        console.log("imageNames" + imageNames);
+        console.log(formData);
+        reviewStore.editReview(this.editedReview.no, formData);
+        alert("글 수정 완료");
+      }
       // 저장 후 리뷰 목록 화면으로 이동
       this.$router.push("/reviewboard");
-    },
-    removeImage(index) {
-      if (this.editedReview.images) {
-        this.editedReview.images.splice(index, 1);
-      }
     },
     removeTag(tag) {
       const index = this.editedReview.tags.indexOf(tag);
@@ -57,6 +96,40 @@ export default {
         this.newTag = "";
       }
     },
+    addImage(event) {
+      const files = event.target.files;
+      const remainingSlots = 3 - this.previewImages.length;
+
+      if (remainingSlots <= 0) {
+        // 이미지 업로드 개수가 최대 이미지 개수를 초과할 때 알림창 표시
+        alert("사진 세 개 이상 안된다고 했다.");
+        return;
+      }
+
+      for (let i = 0; i < files.length && i < remainingSlots; i++) {
+        const file = files[i];
+        // 파일 객체인지 확인
+        if (file instanceof File) {
+          // 파일 객체를 배열에 추가
+          this.previewImages.push(file);
+
+          // 이미지 미리보기 URL 생성
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.previewImages.push(e.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    },
+
+    removeImage(index) {
+      // this.editedReview.imageNames.splice(index, 1);
+      // console.log(this.editedReview.imageNames);
+      // 미리보기 배열에서도 삭제
+      this.previewImages.splice(index, 1);
+    },
+
     goToBoard() {
       this.$router.push("/reviewboard");
     },
@@ -70,11 +143,11 @@ export default {
       <v-col cols="12" lg="12" xl="8">
         <div>
           <v-card flat color="transparent">
-            <v-row v-if="editedReview && editedReview.images" justify="center">
-              <v-col v-for="(img, index) in editedReview.images.slice(0, 3)" :key="index">
+            <v-row v-if="editedReview && previewImages" justify="center">
+              <v-col v-for="(img, index) in previewImages.slice(0, 3)" :key="index">
                 <div style="position: relative">
                   <v-img
-                    :src="img"
+                    :src="'http://192.168.120.81:8080/' + img"
                     :aspect-ratio="1 / 1"
                     gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                     width="100%"
@@ -91,7 +164,7 @@ export default {
                 </div>
               </v-col>
               <!-- 이미지 추가 버튼 -->
-              <v-col v-if="editedReview.images.length < 3" cols="auto">
+              <v-col v-if="previewImages.length < 3" cols="auto">
                 <div style="display: flex; justify-content: center; align-items: center">
                   <div
                     style="
@@ -187,7 +260,6 @@ export default {
     </v-row>
   </div>
 </template>
-
 <style scoped>
 .textArea {
   text-align: center;
