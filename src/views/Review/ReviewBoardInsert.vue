@@ -10,16 +10,17 @@ export default {
   name: "ReviewBoardInsert",
   data() {
     return {
-      formData: ref({
+      formData: {
         id: "",
         title: "",
-        images: [], // 사용자 입력을 받을 이미지 URL 배열 변수
+        images: [], // 사용자 입력을 받을 이미지 파일 배열
+        imagePreviews: [], // 이미지 미리보기 URL 배열
         storeName: "", // 사용자 입력을 받을 가게 이름 변수
         storeAddress: "",
         storeComment: "", // 사용자 입력을 받을 설명 변수
         tag: "", // 사용자 입력을 받을 태그 변수
         tags: [], // 사용자가 입력한 태그를 저장할 배열
-      }),
+      },
       maxImageCount: 3, // 최대 이미지 업로드 가능 개수,
       startwidth: "20px",
     };
@@ -31,7 +32,7 @@ export default {
         const formData = new FormData();
         // 이미지 파일들을 FormData에 추가
         this.formData.images.forEach((image, index) => {
-          formData.append(`images[${index}]`, image);
+          formData.append("images", image);
         });
         const data = {
           id: this.formData.id,
@@ -43,13 +44,6 @@ export default {
           writer: "ssafy",
         };
         // 나머지 폼 데이터를 FormData에 추가
-        // formData.append("id", this.formData.id);
-        // formData.append("title", this.formData.title);
-        // formData.append("storeName", this.formData.storeName);
-        // formData.append("storeAddress", this.formData.storeAddress);
-        // formData.append("storeComment", this.formData.storeComment);
-        // formData.append("tag", tagsString);
-        // formData.append("writer", "ssafy");
         formData.append(
           "post",
           new Blob([JSON.stringify(data)], {
@@ -86,14 +80,20 @@ export default {
         const file = files[i];
         // 파일 객체를 FormData에 직접 추가
         this.formData.images.push(file);
+        // 이미지 미리보기 URL 생성
+        this.formData.imagePreviews.push(URL.createObjectURL(file));
       }
     },
 
     removeImage(index) {
       this.formData.images.splice(index, 1);
+      this.formData.imagePreviews.splice(index, 1);
     },
     goToList() {
       this.$router.push({ name: "ReviewBoard" });
+    },
+    removeTag(index) {
+      this.formData.tags.splice(index, 1);
     },
   },
 };
@@ -118,7 +118,7 @@ export default {
                   <v-row justify="center">
                     <!-- 각 이미지를 표시 -->
                     <v-col
-                      v-for="(image, index) in formData.images"
+                      v-for="(imagePreview, index) in formData.imagePreviews"
                       :key="index"
                       cols="auto"
                       sm="6"
@@ -126,7 +126,7 @@ export default {
                       lg="3"
                     >
                       <v-img
-                        :src="image"
+                        :src="imagePreview"
                         :aspect-ratio="1 / 1"
                         width="100%"
                         style="border-radius: 16px; margin-bottom: 10px"
