@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getReview, getReviewDetailInfo } from "@/api/reviewApi.js";
+import { getReview, getReviewDetailInfo, addUserReveiew } from "@/api/reviewApi.js";
 
 export const useReviewStore = defineStore({
   id: "reviewList",
@@ -27,7 +27,13 @@ export const useReviewStore = defineStore({
       }
     },
     async addReview(newReview) {
-      this.reviews.push(newReview);
+      try {
+        const response = await addUserReveiew(newReview);
+        // this.review = response.data;
+        // console.dir(this.review);
+      } catch (error) {
+        console.error("리뷰 등록 실패:", error);
+      }
     },
   },
 });

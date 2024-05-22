@@ -14,8 +14,7 @@ export default {
         storeName: "", // 사용자 입력을 받을 가게 이름 변수
         storeAddress: "",
         storeComment: "", // 사용자 입력을 받을 설명 변수
-        tag: "", // 사용자 입력을 받을 태그 변수
-        tags: [], // 사용자가 입력한 태그를 저장할 배열
+        tags: tagsString, // 태그 문자열로 변환하여 저장
       }),
       maxImageCount: 3, // 최대 이미지 업로드 가능 개수,
       startwidth: "20px",
@@ -220,20 +219,6 @@ export default {
                           "
                         ></textarea>
                       </div>
-                    </div>
-
-                    <div class="text-body-1 py-3" style="margin-left: startwidth">
-                      <label>임시 아이디 : </label>
-                      <input
-                        v-model="formData.id"
-                        type="number"
-                        placeholder="아이디 입력해주세요"
-                        style="
-                          margin-left: startwidth;
-                          border-bottom: 0.1px solid black;
-                          width: 500px;
-                        "
-                      />
                     </div>
 
                     <div class="tagContainer">

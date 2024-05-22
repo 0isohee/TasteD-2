@@ -15,4 +15,8 @@ async function getReviewDetailInfo(no) {
   return await instance.get(`/review/detail/${no}`);
 }
 
-export { getReview, getReviewDetailInfo };
+async function addUserReveiew(newReview) {
+  return await instance.post(`/review/detail/`, newReview);
+}
+
+export { getReview, getReviewDetailInfo, addUserReveiew };
