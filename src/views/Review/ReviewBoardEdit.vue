@@ -114,7 +114,7 @@ export default {
           this.previewImages.push(file);
 
           // 이미지 미리보기 URL 생성
-          const reader = new FileReader();
+          const reader = new FqqqqqileReader();
           reader.onload = (e) => {
             this.previewImages.push(e.target.result);
           };
