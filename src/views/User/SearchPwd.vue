@@ -15,11 +15,9 @@ export default {
   methods: {
     findUserPwd() {
       const userStore = useUserStore();
-      const foundUser = userStore.users.find(
-        (user) => user.name === this.name && user.email === this.email && user.id === this.id
-      );
-      if (foundUser) {
-        this.foundPwd = foundUser.password;
+      userStore.findPwd(this.id, this.name, this.email);
+      if (userStore.foundUser) {
+        this.foundPwd = userStore.foundUser.password;
       } else {
         this.foundPwd = ""; // 비밀번호를 찾지 못한 경우 초기화
       }

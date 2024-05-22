@@ -6,6 +6,7 @@ import {
   getMember,
   joinUser,
   findUserId,
+  findUserPwd,
 } from "@/api/userApi.js";
 
 export const useUserStore = defineStore({
@@ -63,6 +64,14 @@ export const useUserStore = defineStore({
         this.foundUser = response.data;
       } catch (error) {
         console.error("아이디 찾기 실패:", error);
+      }
+    },
+    async findPwd(id, name, email) {
+      try {
+        const response = await findUserPwd({ id, name, email });
+        this.foundUser = response.data;
+      } catch (error) {
+        console.error("비밀번호 찾기 실패:", error);
       }
     },
     updateCurrentUserField(field, value) {
