@@ -1,62 +1,32 @@
 <script>
 import { useUserStore } from "@/stores/user.js";
+const userStore = useUserStore();
 
 export default {
   name: "UserEdit",
-  setup() {
-    const userStore = useUserStore();
-    const editUser = userStore.editUser;
-
-    const editUserInfo = () => {
-      const newUser = {
-        name: editUser.name,
-        id: editUser.id,
-        domain: editUser.domain,
-        password: editUser.password,
-        phone: editUser.phone
-      };
-      userStore.adminEditUser(newUser);
-      // Accessing router instance directly via this.$router
-      this.$router.push({ name: "UserList" });
-    };
-
+  data() {
     return {
-      editUser,
-      editUserInfo,
+      editUser: null
     };
   },
-};
-</script>
-<script>
-import { useUserStore } from "@/stores/user.js";
-
-export default {
-  name: "UserEdit",
-  setup() {
-    const userStore = useUserStore();
-    const editUser = userStore.editUser;
-
-    const editUserInfo = () => {
+  created() {
+    this.editUser = userStore.editUser;
+  },
+  methods: {
+    editUserInfo() {
       const newUser = {
-        name: editUser.name,
-        id: editUser.id,
-        domain: editUser.domain,
-        password: editUser.password,
-        phone: editUser.phone
+        name: this.editUser.name,
+        id: this.editUser.id,
+        domain: this.editUser.domain,
+        password: this.editUser.password,
+        phone: this.editUser.phone
       };
       userStore.adminEditUser(newUser);
-      // Accessing router instance directly via this.$router
-      this.$router.push({ name: "UserList" });
-    };
-
-    return {
-      editUser,
-      editUserInfo,
-    };
-  },
+      this.$router.push("/user-list");
+    }
+  }
 };
 </script>
-
 
 <template>
   <div>
@@ -75,20 +45,21 @@ export default {
                 v-model="editUser.name"
                 :rules="[(v) => /^[가-힣]+$/.test(v) || '이름은 한글만 입력이 가능합니다']"
               ></v-text-field>
-
               <v-text-field
-                label="아이디"
+                label="전화번호"
                 outlined
-                v-model="editUser.id"
-                :rules="[
-                  (v) => (v && v.length >= 5 && v.length <= 12) || '5~12자 이내로 입력하세요',
-                ]"
+                v-model="editUser.phone"
+                :rules="[(v) => /^\d{3}-\d{4}-\d{4}$/.test(v) || 'xxx-xxxx-xxxx으로 입력해주세요']"
               ></v-text-field>
               <v-text-field
-                label="이메일"
+                label="비밀번호"
                 outlined
-                v-model="editUser.domain"
-                :rules="[(v) => /.+@.+\..+/.test(v) || '올바른 이메일 형식이 아닙니다']"
+                v-model="editUser.password"
+                type="password"
+                :rules="[
+                  (v) => !!v || '영문/숫자/특수문자 2가지 이상 조합 (8~20자)',
+                  (v) => (v && v.length >= 8 && v.length <= 20) || '8~20자 이내로 입력하세요',
+                ]"
               ></v-text-field>
 
               <div class="text-center">

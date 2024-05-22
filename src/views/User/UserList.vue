@@ -54,8 +54,11 @@ export default {
             <div class="text-subtitle-1 pr-2">
               아이디: <span class="font-weight-bold">{{ user.id }}</span>,
             </div>
-            <div class="text-subtitle-1">
-              이메일: <span class="font-weight-bold">{{ user.domain }}</span>
+            <div class="text-subtitle-1 pr-2">
+              이메일: <span class="font-weight-bold">{{ user.domain }}</span>,
+            </div>
+            <div class="text-subtitle-1 pr-2">
+              전화번호: <span class="font-weight-bold">{{ user.phone }}</span>
             </div>
           </div>
         </div>
