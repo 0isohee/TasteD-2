@@ -71,11 +71,11 @@ export default {
     LeeJiSu: [
       {
         text: "Github",
-        href: "https://github.com/leejisu",
+        href: "https://github.com/jisooolee",
       },
       {
-        text: "Velog",
-        href: "https://velog.com",
+        text: "blog",
+        href: "https://m.blog.naver.com/book0256",
       },
     ],
     LeeSoHee: [

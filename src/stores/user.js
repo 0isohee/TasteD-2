@@ -13,6 +13,7 @@ export const useUserStore = defineStore({
   state: () => ({
     users: [],
     currentUser: null,
+    foundUser: null,
   }),
   actions: {
     async login(id, password) {
@@ -59,7 +60,7 @@ export const useUserStore = defineStore({
     async findId(name, email) {
       try {
         const response = await findUserId({ name, email });
-        return response.data;
+        this.foundUser = response.data;
       } catch (error) {
         console.error("아이디 찾기 실패:", error);
       }
