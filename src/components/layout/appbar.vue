@@ -1,3 +1,71 @@
+<script>
+import { useUserStore } from "@/stores/user.js";
+const userStore = useUserStore();
+
+export default {
+  data: () => ({
+    drawer: null,
+    barItems: [
+      {
+        title: "홈",
+        to: "/",
+      },
+      {
+        title: "후기 공유",
+        to: "/reviewboard",
+      },
+      {
+        title: "맛집 공유",
+        to: "/storeboard",
+      },
+    ],
+    showMenu: false,
+  }),
+  computed: {
+    btnItems() {
+      let items = [
+        {
+          text: "로그인",
+          action: "Login",
+          to: "/login",
+        },
+        {
+          text: "회원가입",
+          action: "Join",
+          to: "/join",
+        },
+      ];
+      if (userStore.currentUser) {
+        if (userStore.currentUser.id === "admin") {
+          items = [
+            {
+              text: "회원관리",
+              action: "Admin",
+              to: "/admin",
+            },
+          ];
+        } else {
+          items = [
+            {
+              text: "마이페이지",
+              action: "MyPage",
+              to: "/mypage",
+            },
+          ];
+        }
+      }
+      return items;
+    },
+  },
+  methods: {
+    handleItemClick(item) {
+      console.log("Selected action:", item.action);
+      this.$router.push(item.to);
+    },
+  },
+};
+</script>
+
 <template>
   <div>
     <v-navigation-drawer
@@ -72,73 +140,5 @@
     </v-app-bar>
   </div>
 </template>
-
-<script>
-import { useUserStore } from "@/stores/user.js";
-const userStore = useUserStore();
-
-export default {
-  data: () => ({
-    drawer: null,
-    barItems: [
-      {
-        title: "홈",
-        to: "/",
-      },
-      {
-        title: "맛집 공유",
-        to: "/storeboard",
-      },
-      {
-        title: "후기 공유",
-        to: "/reviewboard",
-      },
-    ],
-    showMenu: false,
-  }),
-  computed: {
-    btnItems() {
-      let items = [
-        {
-          text: "로그인",
-          action: "Login",
-          to: "/login",
-        },
-        {
-          text: "회원가입",
-          action: "Join",
-          to: "/join",
-        },
-      ];
-      if (userStore.currentUser) {
-        if (userStore.currentUser.id === "admin") {
-          items = [
-            {
-              text: "회원관리",
-              action: "Admin",
-              to: "/admin",
-            },
-          ];
-        } else {
-          items = [
-            {
-              text: "마이페이지",
-              action: "MyPage",
-              to: "/mypage",
-            },
-          ];
-        }
-      }
-      return items;
-    },
-  },
-  methods: {
-    handleItemClick(item) {
-      console.log("Selected action:", item.action);
-      this.$router.push(item.to);
-    },
-  },
-};
-</script>
 
 <style scoped></style>

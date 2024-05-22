@@ -1,6 +1,4 @@
 <script>
-import { useReviewStore } from "@/stores/review.js";
-const reviewStore = useReviewStore();
 export default {
   name: "ReviewBoardList",
   props: {

@@ -1,5 +1,11 @@
 import { defineStore } from "pinia";
-import { getReview, getReviewDetailInfo, addUserReveiew } from "@/api/reviewApi.js";
+import {
+  getReview,
+  getReviewDetailInfo,
+  addUserReveiew,
+  editUserReview,
+  deleteUserReview,
+} from "@/api/reviewApi.js";
 
 export const useReviewStore = defineStore({
   id: "reviewList",
@@ -12,7 +18,7 @@ export const useReviewStore = defineStore({
       try {
         const response = await getReview();
         this.reviews = response.data;
-        console.dir(this.reviews);
+        // console.dir(this.reviews);
       } catch (error) {
         console.error("리뷰 가져오기 실패 : ", error);
       }
@@ -28,11 +34,24 @@ export const useReviewStore = defineStore({
     },
     async addReview(newReview) {
       try {
-        const response = await addUserReveiew(newReview);
-        // this.review = response.data;
-        // console.dir(this.review);
+        await addUserReveiew(newReview);
       } catch (error) {
         console.error("리뷰 등록 실패:", error);
+      }
+    },
+    async editReview(no, newReview) {
+      try {
+        console.dir(no, newReview);
+        await editUserReview(no, newReview);
+      } catch (error) {
+        console.error("리뷰 등록 실패:", error);
+      }
+    },
+    async deleteReview(no) {
+      try {
+        await deleteUserReview(no);
+      } catch (error) {
+        console.error("리뷰 삭제 실패:", error);
       }
     },
   },

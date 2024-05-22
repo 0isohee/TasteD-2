@@ -13,45 +13,24 @@ export default {
   created() {
     const reviewStore = useReviewStore();
     const reviewId = this.$route.params.id;
-    this.selectedReview = reviewStore.reviews[reviewId - 1];
+    // ID가 reviewId와 같은 리뷰를 찾습니다.
+    this.selectedReview = reviewStore.reviews.find((review) => review.no === reviewId);
     this.setWriterIsAdmin(); // 작성자가 admin인지 여부를 설정하는 메서드 호출
   },
   methods: {
-    setWriterIsAdmin() {
-      // const cookies = cookieValue.split(";").map((cookie) => cookie.trim()); // 쿠키 문자열을 세미콜론으로 구분하여 배열로 변환하고 각 요소의 공백을 제거합니다.
-      // for (const cookie of cookies) {
-      //   const [name, value] = cookie.split(":").map((item) => item.trim()); // 각 쿠키를 콜론(:)으로 분할하여 이름과 값으로 나눕니다.
-      //   if (name === "admin" && value === "admin") {
-      //     this.writerIsAdmin = true; // 작성자가 admin인 경우로 설정합니다.
-      //     return; // 검색 중지
-      //   }
-      // }
-      // // 여기까지 코드가 도달했다면 admin 쿠키를 찾지 못한 것이므로 작성자는 admin이 아닙니다.
-      // this.writerIsAdmin = false;
-      // const userStore = useUserStore();
-      // console.log(userStore.currentUser);
-      // if (userStore.currentUser.id === "admin") {
-      //   this.writerIsAdmin = true;
-      // } else {
-      //   this.writerIsAdmin = false;
-      // }
-    },
+    setWriterIsAdmin() {},
 
     goToEdit() {
-      this.$router.push({ name: "ReviewBoardEdit", params: { id: this.selectedReview.id } });
+      this.$router.push({ name: "ReviewBoardEdit", params: { id: this.selectedReview.no } });
     },
     goToDelete() {
-      if (confirm("리뷰를 삭제합니다.")) {
+      if (confirm("리뷰를 삭제하시겠습니까?")) {
         const reviewStore = useReviewStore();
-        const reviewIndex = reviewStore.reviews.findIndex(
-          (review) => review.id === this.selectedReview.id
-        );
-        // 리뷰 삭제
-        if (reviewIndex !== -1) {
-          reviewStore.reviews.splice(reviewIndex, 1);
-          // 삭제 후 리뷰 목록 화면으로 이동
-          this.$router.push("/reviewboard");
-        }
+        // 해당 id값을 삭제
+        reviewStore.deleteReview(this.$route.params.id);
+
+        // 삭제 후 리뷰 목록 화면으로 이동
+        this.$router.push("/reviewboard");
       }
     },
     goToList() {
@@ -83,7 +62,7 @@ export default {
           <v-card flat color="transparent">
             <v-row v-if="selectedReview" justify="center">
               <v-col
-                v-for="(img, index) in selectedReview.imageNames"
+                v-for="(img, index) in selectedReview.images"
                 :key="index"
                 cols="12"
                 sm="4"

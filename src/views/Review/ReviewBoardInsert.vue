@@ -2,7 +2,10 @@
 <script>
 import { ref } from "vue";
 import { useReviewStore } from "@/stores/review";
+import { useUserStore } from "@/stores/user";
 const reviewStore = useReviewStore();
+const userStore = useUserStore();
+
 export default {
   name: "ReviewBoardInsert",
   data() {
@@ -14,7 +17,8 @@ export default {
         storeName: "", // 사용자 입력을 받을 가게 이름 변수
         storeAddress: "",
         storeComment: "", // 사용자 입력을 받을 설명 변수
-        tags: tagsString, // 태그 문자열로 변환하여 저장
+        tag: "", // 사용자 입력을 받을 태그 변수
+        tags: [], // 사용자가 입력한 태그를 저장할 배열
       }),
       maxImageCount: 3, // 최대 이미지 업로드 가능 개수,
       startwidth: "20px",
@@ -23,25 +27,28 @@ export default {
   methods: {
     confirmInsert() {
       if (confirm("해당 리뷰를 등록하시겠습니까?")) {
-        const newReview = {
-          id: this.formData.id,
-          title: this.formData.title,
-          images: this.formData.images,
-          storeName: this.formData.storeName,
-          storeAddress: this.formData.storeAddress,
-          storeComment: this.formData.storeComment,
-          tags: this.formData.tags,
+        const tagsString = this.formData.tags.join(" ");
+        const formData = new FormData();
+        // 이미지 파일들을 FormData에 추가
+        this.formData.images.forEach((image, index) => {
+          formData.append(`images[${index}]`, image);
+        });
+        // 나머지 폼 데이터를 FormData에 추가
+        formData.append("id", this.formData.id);
+        formData.append("title", this.formData.title);
+        formData.append("storeName", this.formData.storeName);
+        formData.append("storeAddress", this.formData.storeAddress);
+        formData.append("storeComment", this.formData.storeComment);
+        formData.append("tag", tagsString);
+        formData.append("writer", "ssafy");
 
-          // 임시로 저장
-          writer: "admin",
-        };
-        // console.log(newReview);
-        reviewStore.addReview(newReview);
+        console.log(formData);
+        // reviewStore에 전달
+        reviewStore.addReview(formData);
 
         alert("글 등록 완료");
 
         this.goToList();
-      } else {
       }
     },
     onTagInput() {
@@ -156,7 +163,7 @@ export default {
                         <small>* 사진은 최대 3개까지 업로드 가능합니다.</small>
                         <small>* 중복된 파일 업로드 불가능합니다.</small>
                         <small
-                          >* JPG 또는 PNG 파일만 등록 가능하며, 파일 크기는 2MB
+                          >* JPG 또는 PNG 파일만 등록 가능하며, 파일 크기는 50MB
                           이하여야합니다.</small
                         >
                       </div>

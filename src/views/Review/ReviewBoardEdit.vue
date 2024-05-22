@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       editedReview: {
-        images: [], // 이미지 배열을 초기화
+        images: ["dddddd"], // 이미지 배열을 초기화
         tags: [], // 태그 배열을 초기화
       },
       newTag: "", // 새 태그를 추가하기 위한 데이터
@@ -16,20 +16,22 @@ export default {
     const reviewStore = useReviewStore();
     const reviewId = this.$route.params.id;
     // 리뷰 데이터를 가져와 수정할 객체에 복사
-    const review = reviewStore.reviews.find((review) => review.id === reviewId);
-    if (review) {
-      this.editedReview = { ...review };
+    const bringreview = reviewStore.reviews.find((review) => review.no === reviewId);
+    if (bringreview) {
+      this.editedReview = { ...bringreview };
+      // 태그 문자열을 배열로 변환
+      this.editedReview.tags = bringreview.tag.split(" ");
     }
   },
   methods: {
-    // 리뷰를 저장하는 메서드
     saveReview() {
       const reviewStore = useReviewStore();
-      const reviewIndex = reviewStore.reviews.findIndex(
-        (review) => review.id === this.editedReview.id
-      );
+      // 태그 배열을 공백으로 구분된 문자열로 변환
+      this.editedReview.tag = this.editedReview.tags.join(" ");
       // 수정된 리뷰를 리뷰 스토어에 업데이트
-      reviewStore.reviews.splice(reviewIndex, 1, this.editedReview);
+
+      console.log(this.editedReview);
+      reviewStore.editReview(this.editedReview.no, this.editedReview);
 
       //수정 완료 알람창
       alert("수정 완료");
@@ -37,24 +39,17 @@ export default {
       this.$router.push("/reviewboard");
     },
     removeImage(index) {
-      if (Array.isArray(this.editedReview.images)) {
+      if (this.editedReview.images) {
         this.editedReview.images.splice(index, 1);
       }
     },
-    addImage(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.editedReview.images.push(e.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    },
-    removeTag(index) {
-      if (Array.isArray(this.editedReview.tags)) {
+    removeTag(tag) {
+      const index = this.editedReview.tags.indexOf(tag);
+      if (index !== -1) {
         this.editedReview.tags.splice(index, 1);
+        this.$forceUpdate();
       }
+      console.log(this.editedReview.tags);
     },
     addTag() {
       if (this.newTag && !this.editedReview.tags.includes(this.newTag)) {
@@ -131,7 +126,7 @@ export default {
               <div class="mt-1">
                 <v-row>
                   <v-col v-for="(tag, index) in editedReview.tags" :key="index" cols="auto">
-                    <v-chip color="accent" close @click:close="removeTag(index)">{{ tag }}</v-chip>
+                    <v-chip color="accent" close @click:close="removeTag(tag)">{{ tag }}</v-chip>
                   </v-col>
                 </v-row>
               </div>
