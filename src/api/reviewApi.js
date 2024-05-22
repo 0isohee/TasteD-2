@@ -19,12 +19,12 @@ async function addUserReveiew(newReview) {
   return await instance.post(`/review/regist`, newReview, {
     headers: {
       "Content-Type": "multipart/form-data",
+      "Accept-Encoding": "gzip, deflate, br",
     },
   });
 }
 
 async function editUserReview(no, newReview) {
-  console.log(no, newReview);
   return await instance.put(`/review/update/${no}`, newReview, {
     headers: {
       "Content-Type": "multipart/form-data",

@@ -29,7 +29,7 @@ export default {
           <div>
             <v-card flat color="transparent">
               <v-img
-                src="../"
+                src="/"
                 :aspect-ratio="16 / 9"
                 gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                 style="border-radius: 16px"

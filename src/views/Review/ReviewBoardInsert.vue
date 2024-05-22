@@ -33,14 +33,29 @@ export default {
         this.formData.images.forEach((image, index) => {
           formData.append(`images[${index}]`, image);
         });
+        const data = {
+          id: this.formData.id,
+          title: this.formData.title,
+          storeName: this.formData.storeName,
+          storeAddress: this.formData.storeAddress,
+          storeComment: this.formData.storeComment,
+          tag: tagsString,
+          writer: "ssafy",
+        };
         // 나머지 폼 데이터를 FormData에 추가
-        formData.append("id", this.formData.id);
-        formData.append("title", this.formData.title);
-        formData.append("storeName", this.formData.storeName);
-        formData.append("storeAddress", this.formData.storeAddress);
-        formData.append("storeComment", this.formData.storeComment);
-        formData.append("tag", tagsString);
-        formData.append("writer", "ssafy");
+        // formData.append("id", this.formData.id);
+        // formData.append("title", this.formData.title);
+        // formData.append("storeName", this.formData.storeName);
+        // formData.append("storeAddress", this.formData.storeAddress);
+        // formData.append("storeComment", this.formData.storeComment);
+        // formData.append("tag", tagsString);
+        // formData.append("writer", "ssafy");
+        formData.append(
+          "post",
+          new Blob([JSON.stringify(data)], {
+            type: "application/json",
+          })
+        );
 
         console.log(formData);
         // reviewStore에 전달
@@ -69,13 +84,11 @@ export default {
       const remainingSlots = this.maxImageCount - this.formData.images.length;
       for (let i = 0; i < files.length && i < remainingSlots; i++) {
         const file = files[i];
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.formData.images.push(reader.result);
-        };
-        reader.readAsDataURL(file);
+        // 파일 객체를 FormData에 직접 추가
+        this.formData.images.push(file);
       }
     },
+
     removeImage(index) {
       this.formData.images.splice(index, 1);
     },

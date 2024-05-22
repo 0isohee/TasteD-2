@@ -27,7 +27,6 @@ export const useReviewStore = defineStore({
       try {
         const response = await getReviewDetailInfo(no);
         this.review = response.data;
-        // console.dir(this.review);
       } catch (error) {
         console.error("리뷰 디테일 가져오기 실패:", error);
       }
