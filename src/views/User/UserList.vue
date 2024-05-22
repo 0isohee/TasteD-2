@@ -1,3 +1,33 @@
+<script>
+import { useUserStore } from "@/stores/user.js";
+
+export default {
+  name: "UserList",
+  data() {
+    return {
+      userStore: useUserStore()
+    };
+  },
+  created() {
+    this.userStore.getMemberList();
+  },
+  methods: {
+    deleteMember(index) {
+      const userToDelete = this.userStore.users[index];
+      const confirmDelete = confirm(`${userToDelete.name} 님을 삭제하시겠습니까?`);
+      if (confirmDelete) {
+        this.userStore.users.splice(index, 1);
+        alert("회원을 삭제하였습니다. 회원 관리 폼으로 이동합니다.");
+      }
+    },
+    editMember(index) {
+      this.userStore.editUser = this.userStore.users[index];
+      this.$router.push({ name: "UserEdit" });
+    }
+  }
+};
+</script>
+
 <template>
   <div class="pt-4">
     <h3 class="text-h5 font-weight-medium pb-4">회원 관리</h3>
@@ -19,12 +49,10 @@
           </div>
           <div class="d-flex">
             <div class="text-subtitle-1 pr-2">
-              이름: <span class="font-weight-bold">{{ user.name }}</span
-              >,
+              이름: <span class="font-weight-bold">{{ user.name }}</span>,
             </div>
             <div class="text-subtitle-1 pr-2">
-              아이디: <span class="font-weight-bold">{{ user.id }}</span
-              >,
+              아이디: <span class="font-weight-bold">{{ user.id }}</span>,
             </div>
             <div class="text-subtitle-1">
               이메일: <span class="font-weight-bold">{{ user.domain }}</span>
@@ -35,32 +63,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import { useUserStore } from "@/stores/user.js";
-
-export default {
-  name: "UserList",
-  setup() {
-    const userStore = useUserStore();
-    userStore.getMemberList();
-
-    const deleteMember = (index) => {
-      const userToDelete = userStore.users[index];
-      const confirmDelete = confirm(`${userToDelete.name} 님을 삭제하시겠습니까?`);
-      if (confirmDelete) {
-        userStore.users.splice(index, 1);
-        alert("회원을 삭제하였습니다. 회원 관리 폼으로 이동합니다.");
-      }
-    };
-
-    return {
-      userStore,
-      deleteMember,
-    };
-  },
-};
-</script>
 
 <style scoped>
 .d-flex {

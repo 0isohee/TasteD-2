@@ -20,6 +20,10 @@ async function deleteUser(id) {
   return await instance.delete(`/user/delete/${id}`, { withCredentials: true });
 }
 
+async function updateUser(newUser) {
+  return await instance.put("/user/update", newUser, { withCredentials: true });
+}
+
 async function getMember() {
   return await instance.get("/manage/member/list", { withCredentials: true });
 }
@@ -36,4 +40,9 @@ async function findUserPwd(user) {
   return await instance.post("/user/findPwd", user, { withCredentials: true });
 }
 
-export { loginUser, logoutUser, deleteUser, getMember, joinUser, findUserId, findUserPwd };
+// 관리자가 회원을 수정하는 것
+async function editAdminUser(user) {
+  return await instance.put("/manage/member/update", user, { withCredentials: true });
+}
+
+export { loginUser, logoutUser, deleteUser, updateUser, getMember, joinUser, findUserId, findUserPwd, editAdminUser };

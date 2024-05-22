@@ -43,7 +43,12 @@ export default {
               action: "Admin",
               to: "/admin",
             },
-          ];
+            {
+              text: "로그아웃",
+              action: "logout",
+              to: "/",
+            },
+          ]
         } else {
           items = [
             {
@@ -51,7 +56,12 @@ export default {
               action: "MyPage",
               to: "/mypage",
             },
-          ];
+            {
+              text: "로그아웃",
+              action: "logout",
+              to: "/",
+            },
+          ]
         }
       }
       return items;
@@ -60,7 +70,14 @@ export default {
   methods: {
     handleItemClick(item) {
       console.log("Selected action:", item.action);
-      this.$router.push(item.to);
+      if (item.action === "logout") {
+        if (confirm('로그아웃 하시겠습니까?')) {
+          userStore.logout();
+          location.reload();
+        }
+      } else {
+        this.$router.push(item.to);
+      }
     },
   },
 };

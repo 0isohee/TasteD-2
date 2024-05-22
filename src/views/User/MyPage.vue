@@ -68,7 +68,8 @@
         </tbody>
       </table>
       <div class="button-container">
-        <v-btn @click="logout" color="hover">로그아웃</v-btn>
+        <v-btn @click="editInfo" color="hover">변경</v-btn>
+        <!-- <v-btn @click="logout" color="hover">로그아웃</v-btn> -->
         <v-btn @click="confirmDeleteUser" color="secondary" class="mr-2">탈퇴</v-btn>
       </div>
     </div>
@@ -117,6 +118,17 @@ export default {
     }
   },
   methods: {
+    editInfo(){
+      const newUser = {
+        id: this.id,
+        password: this.password, // 이전 비밀번호
+        newPassword: this.editedFields.password || this.password, // 변경된 비밀번호가 있으면 그것을 사용, 없으면 기존 비밀번호 사용
+        email: this.email,
+        name: this.name,
+        phone: userStore.currentUser.phone,
+      };
+      userStore.editUser(newUser);
+    },
     toggleEditMode(field) {
       this.editMode[field] = !this.editMode[field];
     },
@@ -128,7 +140,7 @@ export default {
     },
     logout() {
       userStore.logout(this.id, this.password);
-      this.$router.push({ name: "Login" });
+      this.$router.push({ name: "Home" });
     },
     confirmDeleteUser() {
       if (confirm("회원 탈퇴하시겠습니까?")) {

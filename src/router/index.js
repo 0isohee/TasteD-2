@@ -73,6 +73,16 @@ const routes = [
     name: "SearchPwd",
     component: () => import("@/views/User/SearchPwd.vue"),
   },
+  {
+    path: "/edit-user",
+    name: "UserEdit",
+    component: () => import("@/views/User/UserEdit.vue"),
+  },
+  {
+    path: "/user-list",
+    name: "UserList",
+    component: () => import("@/views/User/UserList.vue"),
+  },
 ];
 
 const router = new VueRouter({

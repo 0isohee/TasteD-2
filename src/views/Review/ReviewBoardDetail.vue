@@ -12,12 +12,17 @@ export default {
   },
   created() {
     const reviewStore = useReviewStore();
+    const userStore = useUserStore();
+    const currentUser = userStore.currentUser;
     const reviewId = this.$route.params.id;
-    reviewStore.getReviewDetail(reviewId);
-    // reviewStore.getReviewDetail(7);
+    reviewStore.getReviewDetail(reviewId).then(() => {
+      this.selectedReview = reviewStore.review;
 
-    this.selectedReview = reviewStore.review;
-    console.log(this.selectedReview);
+      // 작성자가 admin인지 여부를 설정하는 메서드 호출
+      this.setWriterIsAdmin();
+      console.log(this.writerIsAdmin);
+      console.log(currentUser);
+    });
   },
   methods: {
     goToEdit() {
@@ -42,18 +47,28 @@ export default {
     moveToNext() {
       console.log("next");
     },
+    setWriterIsAdmin() {
+      const userStore = useUserStore();
+      const currentUser = userStore.currentUser;
+      if (currentUser.id === 'admin' || currentUser.name === this.selectedReview.writer){
+        this.writerIsAdmin = true;
+      }
+      else {
+        this.writerIsAdmin = false;
+      }
+    }
   },
   watch: {
-    // selectedReview 변경을 감지하여 작성자가 admin인지 여부를 다시 설정하는 메서드
     selectedReview: {
       handler() {
-        // this.setWriterIsAdmin();
+        this.setWriterIsAdmin();
       },
-      deep: true, // 객체의 하위 속성도 감시
+      deep: true,
     },
   },
 };
 </script>
+
 <template>
   <div>
     <v-row justify="center">
@@ -70,7 +85,7 @@ export default {
                 lg="4"
               >
                 <v-img
-                  :src="'http://192.168.120.81:8080/' + img"
+                  :src="'http://localhost:8080/' + img"
                   :aspect-ratio="1 / 1"
                   gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                   width="100%"
@@ -114,7 +129,7 @@ export default {
                 </div>
               </div>
 
-              <div class="d-flex justify-end mt-5" v-show="writerIsAdmin">
+              <div class="d-flex justify-end mt-5" v-if="writerIsAdmin">
                 <div style="margin-right: 10px">
                   <v-btn color="hover" @click="goToEdit">후기 수정</v-btn>
                 </div>

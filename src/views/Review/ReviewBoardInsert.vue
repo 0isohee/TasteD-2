@@ -1,4 +1,3 @@
-<!-- ReviewBoardInsert.vue -->
 <script>
 import { ref } from "vue";
 import { useReviewStore } from "@/stores/review";

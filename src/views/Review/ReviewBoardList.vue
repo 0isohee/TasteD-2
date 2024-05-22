@@ -1,4 +1,7 @@
 <script>
+import { useUserStore } from "@/stores/user.js";
+const userStore = useUserStore();
+
 export default {
   name: "ReviewBoardList",
   props: {
@@ -6,6 +9,12 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  data() {
+    const userStore = useUserStore();
+    return {
+      isUser: userStore.currentUser !== null,
+    };
   },
   methods: {
     goToReviewDetail(no) {
@@ -25,6 +34,7 @@ export default {
       <div class="titleContainer">
         <h3 class="text-h5 font-weight-medium pb-4">인기 게시글</h3>
         <v-btn
+          v-if="isUser"
           @click.prevent="addReview"
           depressed
           medium
@@ -41,7 +51,7 @@ export default {
           <v-col cols="12" md="6" lg="5">
             <v-card height="100%" flat @click.prevent="goToReviewDetail(review.no)">
               <v-img
-                :src="'http://192.168.120.81:8080/' + review.imageNames[0]"
+                :src="'http://localhost:8080/' + review.imageNames[0]"
                 :aspect-ratio="16 / 9"
                 height="100%"
               ></v-img>

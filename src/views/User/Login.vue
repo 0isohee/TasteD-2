@@ -15,9 +15,11 @@ export default {
       this.$router.push({ name: "Join" });
     },
     loginMember(id, password) {
-      userStore.login(id, password);
-      alert("로그인 성공!");
-      this.$router.push({ name: "Home" });
+      userStore.login(id, password).then((response) => {
+        if (response === 100) {
+          this.$router.push({ name: "Home" });
+        }
+      });
     },
   },
 };
