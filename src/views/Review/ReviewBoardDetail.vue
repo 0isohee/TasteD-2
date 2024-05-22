@@ -14,6 +14,7 @@ export default {
     const reviewStore = useReviewStore();
     const reviewId = this.$route.params.id;
     reviewStore.getReviewDetail(reviewId);
+    // reviewStore.getReviewDetail(7);
 
     this.selectedReview = reviewStore.review;
     console.log(this.selectedReview);
