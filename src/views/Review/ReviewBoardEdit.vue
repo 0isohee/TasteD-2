@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       editedReview: {
+        imageNames: [],
         tags: [], // 태그 배열을 초기화
       },
       newTag: "", // 새 태그를 추가하기 위한 데이터
@@ -35,14 +36,14 @@ export default {
       if (confirm("해당 리뷰를 수정하시겠습니까?")) {
         const tagsString = this.editedReview.tags.join(" ");
         const formData = new FormData();
-        const imageNames = [];
+        const names = [];
 
         const filesToUpload = [];
         this.previewImages.forEach((image) => {
           if (image instanceof File) {
             filesToUpload.push(image);
           } else {
-            imageNames.push(image);
+            names.push(image);
           }
         });
         // 이미지 파일들을 FormData에 추가
@@ -54,8 +55,8 @@ export default {
           formData.append("images", null);
         }
 
-        console.log(imageNames);
-        formData.append("imageNames", imageNames);
+        console.log(names);
+        // formData.append("imageNames", imageNames);
         const data = {
           id: this.editedReview.id,
           title: this.editedReview.title,
@@ -64,6 +65,7 @@ export default {
           storeAddress: this.editedReview.storeAddress,
           storeComment: this.editedReview.storeComment,
           tag: tagsString,
+          imageNames: names,
         };
 
         // 나머지 폼 데이터를 FormData에 추가
@@ -74,7 +76,6 @@ export default {
           })
         );
         // reviewStore에 전달
-        console.log("imageNames" + imageNames);
         console.log(formData);
         reviewStore.editReview(this.editedReview.no, formData);
         alert("글 수정 완료");
