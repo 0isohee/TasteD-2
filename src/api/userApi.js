@@ -45,4 +45,10 @@ async function editAdminUser(user) {
   return await instance.put("/manage/member/update", user, { withCredentials: true });
 }
 
-export { loginUser, logoutUser, deleteUser, updateUser, getMember, joinUser, findUserId, findUserPwd, editAdminUser };
+// 관리자가 회원을 삭제하는 것
+async function deleteAdminUser(id) {
+  return await instance.delete(`/manage/member/delete/${id}`);
+}
+
+
+export { loginUser, logoutUser, deleteUser, updateUser, getMember, joinUser, findUserId, findUserPwd, editAdminUser, deleteAdminUser };

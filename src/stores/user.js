@@ -11,6 +11,8 @@ import {
   updateUser,
   // 관리자가 수정
   editAdminUser,
+  // 관리자가 삭제
+  deleteAdminUser
 } from "@/api/userApi.js";
 
 export const useUserStore = defineStore({
@@ -97,6 +99,14 @@ export const useUserStore = defineStore({
         alert("관리자가 회원 정보를 성공적으로 수정했습니다.");
       } catch (error) {
         console.error("회원 수정 실패:", error);
+      }
+    },
+    async adminQuitUser(id) {
+      try {
+        await deleteAdminUser(id);
+        alert("관리자가 회원 정보를 성공적으로 삭제했습니다.");
+      } catch (error) {
+        console.error("회원 삭제 실패:", error);
       }
     },
     updateCurrentUserField(field, value) {

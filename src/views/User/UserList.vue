@@ -16,13 +16,19 @@ export default {
       const userToDelete = this.userStore.users[index];
       const confirmDelete = confirm(`${userToDelete.name} 님을 삭제하시겠습니까?`);
       if (confirmDelete) {
-        this.userStore.users.splice(index, 1);
-        alert("회원을 삭제하였습니다. 회원 관리 폼으로 이동합니다.");
-      }
-    },
-    editMember(index) {
-      this.userStore.editUser = this.userStore.users[index];
-      this.$router.push({ name: "UserEdit" });
+        this.userStore.adminQuitUser(userToDelete.id)
+      .then(() => {
+        // Refresh the page after deletion
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error('Error deleting user:', error);
+      });
+    }
+  },
+  editMember(index) {
+    this.userStore.editUser = this.userStore.users[index];
+    this.$router.push({ name: "UserEdit" });
     }
   }
 };
