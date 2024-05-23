@@ -38,7 +38,7 @@ export default {
           storeAddress: this.formData.storeAddress,
           storeComment: this.formData.storeComment,
           tag: tagsString,
-          writer: userStore.currentUser.name,
+          writer: userStore.currentUser.id,
         };
         // 나머지 폼 데이터를 FormData에 추가
         formData.append(

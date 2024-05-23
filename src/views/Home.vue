@@ -12,6 +12,10 @@ export default {
     const topThreeStores = ref([]); // Define as ref
     const topThreeReviews = ref([]); // Define as ref
 
+    const findImage = (storename, storeinfo) => {
+      return storeStore.selectFile(storename, storeinfo);
+    };
+
     onMounted(() => {
       reviewStore.getReviewList();
       storeStore.getStoreList();
@@ -24,6 +28,7 @@ export default {
     return {
       topThreeStores,
       topThreeReviews,
+      findImage,
     };
   },
 };
@@ -68,7 +73,7 @@ export default {
         <v-col v-for="(store, index) in topThreeStores" :key="index" cols="6" lg="4">
           <v-card dark flat>
             <v-img
-              src="../"
+              :src="findImage(store.restname, store.info)"
               :aspect-ratio="16 / 9"
               class="elevation-2 fill-height"
               gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
