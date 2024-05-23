@@ -50,13 +50,12 @@ export default {
     setWriterIsAdmin() {
       const userStore = useUserStore();
       const currentUser = userStore.currentUser;
-      if (currentUser.id === 'admin' || currentUser.id === this.selectedReview.writer){
+      if (currentUser.id === "admin" || currentUser.id === this.selectedReview.writer) {
         this.writerIsAdmin = true;
-      }
-      else {
+      } else {
         this.writerIsAdmin = false;
       }
-    }
+    },
   },
   watch: {
     selectedReview: {
@@ -85,7 +84,7 @@ export default {
                 lg="4"
               >
                 <v-img
-                  :src="'http://localhost:8080/' + img"
+                  :src="'http://192.168.120.81:8080/' + img"
                   :aspect-ratio="1 / 1"
                   gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                   width="100%"

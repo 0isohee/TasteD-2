@@ -1,44 +1,30 @@
 <script>
-import { computed } from "vue";
-import "@/css/main.css";
+import { useReviewStore } from "@/stores/review.js";
 import { useStoreStore } from "@/stores/store.js";
-import { useReviewStore } from "@/stores/review";
+import { ref, onMounted } from "vue"; // Import ref and onMounted
 
 export default {
   name: "Home",
-  data() {
+
+  setup() {
+    const reviewStore = useReviewStore();
+    const storeStore = useStoreStore();
+    const topThreeStores = ref([]); // Define as ref
+    const topThreeReviews = ref([]); // Define as ref
+
+    onMounted(() => {
+      reviewStore.getReviewList();
+      storeStore.getStoreList();
+
+      // Assign values using .value for ref
+      topThreeStores.value = storeStore.stores.splice(0, 3);
+      topThreeReviews.value = reviewStore.reviews.splice(0, 3);
+    });
+
     return {
-      storeList: [],
-      reviewList: [],
+      topThreeStores,
+      topThreeReviews,
     };
-  },
-  created() {
-    this.getStoreList();
-    this.getReviewList();
-  },
-  methods: {
-    async getStoreList() {
-      this.storeList = await useStoreStore().getStoreList();
-    },
-    async getReviewList() {
-      this.reviewList = await useReviewStore().getReviewList();
-    },
-  },
-  computed: {
-    topThreeStores() {
-      if (this.storeList && this.storeList.length > 0) {
-        return this.storeList.slice(0, 3);
-      } else {
-        return [];
-      }
-    },
-    topThreeReviews() {
-      if (this.reviewList && this.reviewList.length > 0) {
-        return this.reviewList.slice(0, 3);
-      } else {
-        return [];
-      }
-    },
   },
 };
 </script>
@@ -82,11 +68,11 @@ export default {
         <v-col v-for="(store, index) in topThreeStores" :key="index" cols="6" lg="4">
           <v-card dark flat>
             <v-img
+              src="../"
               :aspect-ratio="16 / 9"
               class="elevation-2 fill-height"
               gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
               height="600px"
-              src="/images/no_file.jpg"
             >
               <div class="d-flex flex-column justify-space-between fill-height">
                 <v-card-text>
@@ -95,12 +81,12 @@ export default {
 
                 <v-card-text>
                   <div class="text-h5 py-3 font-weight-bold" style="line-height: 1.2">
-                    {{ store.addr }}
+                    {{ store.restname }}
                   </div>
 
                   <div class="d-flex align-center">
                     <v-avatar color="accent" size="36">
-                      <v-icon dark>mdi-feather</v-icon>
+                      <v-icon dark>mdi-heart</v-icon>
                     </v-avatar>
 
                     <div class="pl-2">{{ store.addr }}</div>
@@ -123,21 +109,20 @@ export default {
               <v-img
                 :aspect-ratio="16 / 9"
                 height="100%"
-                src="https://cdn.pixabay.com/photo/2021/01/27/06/54/nova-scotia-duck-tolling-retriever-5953883_1280.jpg"
-              ></v-img>
+                :src="'http://192.168.120.81:8080/' + review.imageNames[0]"
+              >
+              </v-img>
             </v-card>
           </v-col>
 
           <v-col>
             <div>
-              <v-btn color="accent" depressed>TRAVEL</v-btn>
+              <v-btn color="accent" depressed>{{ index + 1 }}번째 리뷰</v-btn>
 
-              <h3 class="text-h4 font-weight-bold pt-3">
-                {{ review.title }}
-              </h3>
+              <h3 class="text-h5 font-weight-bold pt-3">{{ review.writer }}님의 후기</h3>
 
               <p class="text-h6 font-weight-regular pt-3 text--secondary">
-                {{ review.comment }}
+                {{ review.storeComment }}
               </p>
 
               <div class="d-flex align-center">

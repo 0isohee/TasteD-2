@@ -1,7 +1,8 @@
 <script>
 import { useReviewStore } from "@/stores/review";
+import { useUserStore } from "@/stores/user";
 const reviewStore = useReviewStore();
-
+const userStore = useUserStore();
 export default {
   name: "ReviewBoardInsert",
   data() {
@@ -37,7 +38,7 @@ export default {
           storeAddress: this.formData.storeAddress,
           storeComment: this.formData.storeComment,
           tag: tagsString,
-          writer: "ssafy",
+          writer: userStore.currentUser.name,
         };
         // 나머지 폼 데이터를 FormData에 추가
         formData.append(
