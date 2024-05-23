@@ -148,7 +148,7 @@ export default {
               <v-col v-for="(img, index) in previewImages.slice(0, 3)" :key="index">
                 <div style="position: relative">
                   <v-img
-                    :src="'http://localhost:8080/' + img"
+                    :src="'http://192.168.120.81:8080/' + img"
                     :aspect-ratio="1 / 1"
                     gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                     width="100%"

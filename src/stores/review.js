@@ -12,6 +12,7 @@ export const useReviewStore = defineStore({
   state: () => ({
     reviews: [],
     review: null,
+    homeReview: [],
   }),
   actions: {
     async getReviewList() {

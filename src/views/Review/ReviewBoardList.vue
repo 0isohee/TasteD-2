@@ -51,7 +51,7 @@ export default {
           <v-col cols="12" md="6" lg="5">
             <v-card height="100%" flat @click.prevent="goToReviewDetail(review.no)">
               <v-img
-                :src="'http://localhost:8080/' + review.imageNames[0]"
+                :src="'http://192.168.120.81:8080/' + review.imageNames[0]"
                 :aspect-ratio="16 / 9"
                 height="100%"
               ></v-img>

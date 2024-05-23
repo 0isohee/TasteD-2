@@ -1,3 +1,48 @@
+<script>
+import { computed } from "vue";
+import "@/css/main.css";
+import { useStoreStore } from "@/stores/store.js";
+import { useReviewStore } from "@/stores/review";
+
+export default {
+  name: "Home",
+  data() {
+    return {
+      storeList: [],
+      reviewList: [],
+    };
+  },
+  created() {
+    this.getStoreList();
+    this.getReviewList();
+  },
+  methods: {
+    async getStoreList() {
+      this.storeList = await useStoreStore().getStoreList();
+    },
+    async getReviewList() {
+      this.reviewList = await useReviewStore().getReviewList();
+    },
+  },
+  computed: {
+    topThreeStores() {
+      if (this.storeList && this.storeList.length > 0) {
+        return this.storeList.slice(0, 3);
+      } else {
+        return [];
+      }
+    },
+    topThreeReviews() {
+      if (this.reviewList && this.reviewList.length > 0) {
+        return this.reviewList.slice(0, 3);
+      } else {
+        return [];
+      }
+    },
+  },
+};
+</script>
+
 <template>
   <div class="home-container">
     <div>
@@ -34,7 +79,7 @@
       <h2 class="text-h4 font-weight-bold pb-4">실시간으로 인기 폭발중인 대전 맛집들</h2>
 
       <v-row>
-        <v-col v-for="i in 3" :key="i" cols="6" lg="4">
+        <v-col v-for="(store, index) in topThreeStores" :key="index" cols="6" lg="4">
           <v-card dark flat>
             <v-img
               :aspect-ratio="16 / 9"
@@ -50,7 +95,7 @@
 
                 <v-card-text>
                   <div class="text-h5 py-3 font-weight-bold" style="line-height: 1.2">
-                    레전드맛집..먹고기절
+                    {{ store.addr }}
                   </div>
 
                   <div class="d-flex align-center">
@@ -58,7 +103,7 @@
                       <v-icon dark>mdi-feather</v-icon>
                     </v-avatar>
 
-                    <div class="pl-2">Yan Lee · 03 Jan 2019</div>
+                    <div class="pl-2">{{ store.addr }}</div>
                   </div>
                 </v-card-text>
               </div>
@@ -72,7 +117,7 @@
       <h2 class="text-h4 font-weight-bold">맛집 후기글</h2>
 
       <div>
-        <v-row v-for="i in 6" :key="i" class="py-4">
+        <v-row v-for="(review, index) in topThreeReviews" :key="index" class="py-4">
           <v-col cols="12" md="4">
             <v-card flat height="100%">
               <v-img
@@ -88,13 +133,11 @@
               <v-btn color="accent" depressed>TRAVEL</v-btn>
 
               <h3 class="text-h4 font-weight-bold pt-3">
-                Ut enim blandit volutpat maecenas volutpat blandit
+                {{ review.title }}
               </h3>
 
               <p class="text-h6 font-weight-regular pt-3 text--secondary">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                qui officia deserunt mollit anim id est laborum.
+                {{ review.comment }}
               </p>
 
               <div class="d-flex align-center">
@@ -102,7 +145,7 @@
                   <v-icon dark>mdi-feather</v-icon>
                 </v-avatar>
 
-                <div class="pl-2">Yan Lee · 03 Jan 2019</div>
+                <div class="pl-2">{{ review.writer }}</div>
               </div>
             </div>
           </v-col>
@@ -111,13 +154,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import "@/css/main.css";
-export default {
-  name: "Home",
-};
-</script>
 
 <style scoped>
 .home-container {
