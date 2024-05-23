@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-container">
     <div>
       <v-card to="detail">
         <v-img
@@ -113,10 +113,14 @@
 </template>
 
 <script>
+import "@/css/main.css";
 export default {
   name: "Home",
-  components: {
-    siderbar: () => import("@/components/details/sidebar"),
-  },
 };
 </script>
+
+<style scoped>
+.home-container {
+  font-family: "omyu_pretty" !important;
+}
+</style>

@@ -1,22 +1,21 @@
 <script>
-import { onMounted, ref, watchEffect } from "vue";
 import { useStoreStore } from "@/stores/store.js";
 import { useRoute } from "vue-router/composables";
+const storeStore = useStoreStore();
 
 export default {
   name: "StoreBoardDetail",
   setup() {
-    const storeStore = useStoreStore();
     const router = useRoute();
     const nowStore = storeStore.stores[router.params.id - 1]; // 현재 상점 데이터를 저장할 변수
-
-    onMounted(() => {
-      // nowStore = null;
-    });
-    console.log(nowStore);
     return {
       nowStore,
     };
+  },
+  methods: {
+    selectFileAddr(storename, storeinfo) {
+      return storeStore.selectFile(storename, storeinfo);
+    },
   },
 };
 </script>
@@ -29,9 +28,10 @@ export default {
           <div>
             <v-card flat color="transparent">
               <v-img
-                src="/"
-                :aspect-ratio="16 / 9"
+                :src="selectFileAddr(nowStore.restname, nowStore.info)"
+                :aspect-ratio="4 / 3"
                 gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
+                weight="50px"
                 style="border-radius: 16px"
               ></v-img>
 
@@ -208,3 +208,5 @@ export default {
     </v-row>
   </div>
 </template>
+
+<style></style>

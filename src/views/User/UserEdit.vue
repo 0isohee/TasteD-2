@@ -6,7 +6,7 @@ export default {
   name: "UserEdit",
   data() {
     return {
-      editUser: null
+      editUser: null,
     };
   },
   created() {
@@ -19,12 +19,12 @@ export default {
         id: this.editUser.id,
         domain: this.editUser.domain,
         password: this.editUser.password,
-        phone: this.editUser.phone
+        phone: this.editUser.phone,
       };
       userStore.adminEditUser(newUser);
       this.$router.push("/user-list");
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -37,7 +37,7 @@ export default {
             <div class="text-h5">회원 정보 수정</div>
           </v-card-title>
           <!-- 폼 유효성 검사 -->
-          <v-form ref="form" @submit.prevent="editUserInfo">
+          <v-form ref="form" @submit="editUserInfo">
             <v-card-text class="userInput">
               <v-text-field
                 label="이름"
@@ -70,7 +70,6 @@ export default {
         </v-card>
       </v-col>
     </v-row>
-
   </div>
 </template>
 

@@ -97,6 +97,7 @@ export const useUserStore = defineStore({
       try {
         await editAdminUser(newUser);
         alert("관리자가 회원 정보를 성공적으로 수정했습니다.");
+        
       } catch (error) {
         console.error("회원 수정 실패:", error);
       }

@@ -5,32 +5,44 @@ export default {
   name: "UserList",
   data() {
     return {
-      userStore: useUserStore()
+      userStore: useUserStore(),
     };
   },
   created() {
-    this.userStore.getMemberList();
+    this.fetchUsers();
   },
   methods: {
+    fetchUsers() {
+      this.userStore.getMemberList();
+    },
     deleteMember(index) {
       const userToDelete = this.userStore.users[index];
       const confirmDelete = confirm(`${userToDelete.name} 님을 삭제하시겠습니까?`);
       if (confirmDelete) {
-        this.userStore.adminQuitUser(userToDelete.id)
-      .then(() => {
-        // Refresh the page after deletion
-        window.location.reload();
-      })
-      .catch(error => {
-        console.error('Error deleting user:', error);
-      });
-    }
+        this.userStore
+          .adminQuitUser(userToDelete.id)
+          .then(() => {
+            this.fetchUsers();
+          })
+          .catch((error) => {
+            console.error("Error deleting user:", error);
+          });
+      }
+    },
+    editMember(index) {
+      this.userStore.editUser = this.userStore.users[index];
+      this.$router.push({ name: "UserEdit" });
+    },
   },
-  editMember(index) {
-    this.userStore.editUser = this.userStore.users[index];
-    this.$router.push({ name: "UserEdit" });
-    }
-  }
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.fetchUsers();
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.fetchUsers();
+    next();
+  },
 };
 </script>
 
@@ -55,13 +67,16 @@ export default {
           </div>
           <div class="d-flex">
             <div class="text-subtitle-1 pr-2">
-              이름: <span class="font-weight-bold">{{ user.name }}</span>,
+              이름: <span class="font-weight-bold">{{ user.name }}</span
+              >,
             </div>
             <div class="text-subtitle-1 pr-2">
-              아이디: <span class="font-weight-bold">{{ user.id }}</span>,
+              아이디: <span class="font-weight-bold">{{ user.id }}</span
+              >,
             </div>
             <div class="text-subtitle-1 pr-2">
-              이메일: <span class="font-weight-bold">{{ user.domain }}</span>,
+              이메일: <span class="font-weight-bold">{{ user.domain }}</span
+              >,
             </div>
             <div class="text-subtitle-1 pr-2">
               전화번호: <span class="font-weight-bold">{{ user.phone }}</span>
